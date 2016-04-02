@@ -6,12 +6,10 @@ package uk.urchinly.wabi.search;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
 
-@Profile("prod")
 @Component
 public class AmqpQueues {
 

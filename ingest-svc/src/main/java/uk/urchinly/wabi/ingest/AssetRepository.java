@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import uk.urchinly.wabi.entities.Asset;
 
-public interface AssetRepository extends MongoRepository<Asset, String> {
+public interface AssetRepository extends MongoRepository<MongoAsset, String> {
 
 	public List<Asset> findByUserId(String userId);
 

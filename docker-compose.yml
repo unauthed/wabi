@@ -9,6 +9,7 @@ services:
     image: urchinly/ingest-svc
     environment:
      - WABI_SHARE=/data/vault
+     - SPRING_PROFILES_ACTIVE=prod    
      - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo-srv_1/wabi
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
     ports:
@@ -27,6 +28,7 @@ services:
     image: urchinly/expose-svc
     environment:
      - WABI_SHARE=/data/vault
+     - SPRING_PROFILES_ACTIVE=prod     
      - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo-srv_1/wabi
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
     ports:
@@ -43,6 +45,7 @@ services:
   search-srv:
     image: urchinly/search-svc
     environment:
+     - SPRING_PROFILES_ACTIVE=prod
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
      - SPRING_DATA_SOLR_HOST=http://wabi_solr-srv_1:8983/solr
     ports:

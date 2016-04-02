@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -e
+
+SERVICE=[[artifactId]]
+USER=[[artifactId]]
+GROUP=[[artifactId]]
+
+if [ -x "/etc/init.d/$SERVICE" ] || [ -e "/etc/init/$SERVICE.conf" ]; then
+	invoke-rc.d $SERVICE stop || exit $?
+fi

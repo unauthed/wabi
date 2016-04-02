@@ -7,9 +7,7 @@ import java.util.List;
 
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
-import uk.urchinly.wabi.entities.Asset;
+public interface AssetRepository extends SolrCrudRepository<SolrAsset, String> {
 
-public interface AssetRepository extends SolrCrudRepository<Asset, String> {
-
-	List<Asset> findByUserId(String userId);
+	List<SolrAsset> findByUserId(String userId);
 }

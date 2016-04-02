@@ -1,0 +1,13 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Name: [[artifactId]]
+Maintainer: Urchinly <wabit@urchinly.uk>
+
+Files: *
+Copyright: 2016 Urchinly
+License: Urchinly-License
+s
+License: Urchinly-License
+ [LICENSE TEXT]
+ .
+ [MORE LICENSE TEXT]
+ 

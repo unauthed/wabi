@@ -5,6 +5,8 @@ package uk.urchinly.wabi.expose;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
 import uk.urchinly.wabi.entities.Asset;
-import uk.urchinly.wabi.messages.UsageMessage;
+import uk.urchinly.wabi.events.UsageEvent;
 
 @RestController
 public class DownloadController {
+
+	private static final Logger logger = LoggerFactory.getLogger(DownloadController.class);
 
 	@Value("${app.share.path}/vault")
 	private String wabiSharePath;
@@ -30,9 +34,9 @@ public class DownloadController {
 	private RabbitTemplate rabbitTemplate;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/assets")
-	public List<Asset> getAssets() {
+	public List<MongoAsset> getAssets() {
 
-		List<Asset> assets = this.assetMongoRepository.findAll();
+		List<MongoAsset> assets = this.assetMongoRepository.findAll();
 
 		return assets;
 	}
@@ -41,8 +45,9 @@ public class DownloadController {
 	public List<Asset> getAsset(@PathVariable String assetId) {
 
 		List<Asset> assets = this.assetMongoRepository.findByUserId(assetId);
-		this.rabbitTemplate.convertAndSend(MessagingConstants.USAGE_ROUTE, new UsageMessage("download asset", assets.get(0)));
-		
+		this.rabbitTemplate.convertAndSend(MessagingConstants.USAGE_ROUTE,
+				new UsageEvent("download asset", assets.get(0)));
+
 		return assets;
 	}
 

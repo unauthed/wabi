@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cd $(dirname $0)/../
+
+export SPRING_CONFIG_LOCATION="conf/application.properties"
+
+exec java -Xms256m -Xmx512m -jar lib/wabi-ingest.jar 

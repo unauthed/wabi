@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+USER=[[artifactId]]
+GROUP=[[artifactId]]
+SERVICE=[[artifactId]]
+
+case "$1" in
+	configure)
+
+	if [ -x "/etc/init.d/$SERVICE" ] || [ -e "/etc/init/$SERVICE.conf" ]; then
+		if [ ! -e "/etc/init/$SERVICE.conf" ]; then
+			update-rc.d $SERVICE defaults >/dev/null
+		fi
+		invoke-rc.d $SERVICE start || exit $?
+	fi
+
+	;;
+esac
+
+exit 0

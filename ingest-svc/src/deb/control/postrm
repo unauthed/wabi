@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+SERVICE=[[artifactId]]
+USER=[[artifactId]]
+GROUP=[[artifactId]]
+
+case "$1" in
+	purge)
+		rm -f /etc/init.d/$SERVICE
+		rm -rf /opt/$SERVICE
+
+		if [ -n "`getent passwd $USER`" ]; then 
+			deluser $USER >/dev/null
+		fi
+		
+		if [ -n "`getent group $GROUP`" ]; then 
+			delgroup $GROUP >/dev/null
+		fi
+		;;
+	upgrade|abort-upgrade|failed-upgrade)
+		;;
+	remove|abort-install|disappear)
+		update-rc.d -f $SERVICE remove >/dev/null
+		;;
+	*)
+		echo "postrm called with unknown argument '$1'" >&2
+		exit 0
+esac

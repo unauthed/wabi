@@ -1,22 +1,22 @@
 /**
  * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
  */
-package uk.urchinly.wabi.messages;
+package uk.urchinly.wabi.events;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class AuditMessage implements Serializable {
+public class UsageEvent implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String status;
 	
 	private Object object;
 	
 	private LocalDateTime currentTime = LocalDateTime.now();
 	
-	public AuditMessage(String status, Object object) {
+	public UsageEvent(String status, Object object) {
 		super();
 		this.status = status;
 		this.object = object;

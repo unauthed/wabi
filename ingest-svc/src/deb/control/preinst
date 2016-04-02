@@ -1,0 +1,23 @@
+#!/bin/sh
+
+set -e
+
+USER=[[artifactId]]
+GROUP=[[artifactId]]
+SERVICE=[[artifactId]]
+
+if [ -z "`getent group $GROUP`" ]; then 
+	addgroup --quiet --system $GROUP
+fi
+
+if [ -z "`getent passwd $USER`" ]; then 
+	adduser \
+	--system \
+	--disabled-login \
+	--ingroup $GROUP \
+	--no-create-home \
+	--home /nonexistent \
+	--gecos "Wabi Service" \
+	--shell /bin/false \
+	$USER  >/dev/null
+fi

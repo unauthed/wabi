@@ -9,7 +9,8 @@
 	<packaging>jar</packaging>
 	<name>Wabi Expose Service</name>
 	<description>Download assets from shared storage. Part of the Wabi DAM platform.</description>
-
+	<inceptionYear>2016</inceptionYear>
+	
 	<parent>
 		<groupId>uk.urchinly.mvn</groupId>
 		<artifactId>mvn-wabi-pom</artifactId>

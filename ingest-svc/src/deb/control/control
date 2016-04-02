@@ -1,0 +1,12 @@
+Package: [[artifactId]]
+Version: [[version]]
+Section: misc
+Priority: optional
+Architecture: all
+Depends: default-java | openjdk-8-jdk
+Description: [[description]]
+Distribution: development
+Homepage: [[url]]
+Maintainer: Urchinly <wabi@urchinly.uk>
+Vcs-Browser: [[scm.url]]
+Vcs-Svn: [[scm.developerConnection]]

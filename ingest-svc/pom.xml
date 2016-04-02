@@ -9,6 +9,7 @@
 	<packaging>jar</packaging>
 	<name>Wabi Ingest Service</name>
 	<description>Upload assets to shared storage. Part of the Wabi DAM platform.</description>
+	<inceptionYear>2016</inceptionYear>
 
 	<parent>
 		<groupId>uk.urchinly.mvn</groupId>
@@ -25,13 +26,18 @@
 			</plugin>
 
 			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>docker-maven-plugin</artifactId>
 			</plugin>
 
 			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
+				<artifactId>jdeb</artifactId>
+				<groupId>org.vafer</groupId>
 			</plugin>
 		</plugins>
 	</build>

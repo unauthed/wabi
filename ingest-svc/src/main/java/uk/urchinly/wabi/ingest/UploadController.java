@@ -12,6 +12,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +32,8 @@ import uk.urchinly.wabi.entities.Asset;
 
 @Controller
 public class UploadController {
+
+	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
 	@Value("${app.share.path}/vault")
 	private String wabiSharePath;
@@ -62,6 +66,7 @@ public class UploadController {
 	@RequestMapping(method = RequestMethod.POST, value = "/upload")
 	public String handleFileUpload(@RequestParam("name") String name, @RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) {
+
 		if (name.contains("/")) {
 			redirectAttributes.addFlashAttribute("message", "Folder separators not allowed");
 			return "redirect:upload";
@@ -78,7 +83,7 @@ public class UploadController {
 				FileCopyUtils.copy(file.getInputStream(), stream);
 				stream.close();
 
-				Asset asset = new MongoAsset(name, file.getOriginalFilename(), (double) file.getSize(),
+				MongoAsset asset = new MongoAsset(name, file.getOriginalFilename(), (double) file.getSize(),
 						Collections.EMPTY_LIST);
 
 				this.saveAsset(asset);
@@ -97,8 +102,10 @@ public class UploadController {
 	}
 
 	@Transactional
-	private void saveAsset(Asset asset) {
+	private void saveAsset(MongoAsset asset) {
 		this.assetMongoRepository.save(asset);
 		this.rabbitTemplate.convertAndSend(MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE, asset);
+
+		logger.debug("Ingested asset with id {}.", asset.getId());
 	}
 }
