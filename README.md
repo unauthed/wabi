@@ -42,9 +42,9 @@ Create Docker image
 
 Check and format licence headers across the project
 
-* `mvn license:check -Prelease` 
+* `mvn license:check` 
 
-* `mvn license:format -Prelease` 
+* `mvn license:format` 
 
 Check for latest versions
 
