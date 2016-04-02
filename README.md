@@ -8,11 +8,13 @@ Open source platform for open access publishing of great simplicity and beauty.
 
 Wabi means things that are fresh and simple. It denotes simplicity and quietude, and also incorporates rustic beauty. It includes both that which is made by nature, and that which is made by man. It also can mean an accidental or happenstance element (or perhaps even a small flaw) which gives elegance and uniqueness to the whole, such as the pattern made by a flowing glaze on a ceramic object.
 
-Wabi digital asset management component of the WABI-SABI publishing platform.
+The digital asset management component of the WABI-SABI publishing platform.
 
-## Sabi [![Build Status](https://travis-ci.org/urchinly/sabi.svg?branch=master)](https://travis-ci.org/urchinly/sabi)
+## Sabi
 
 Sabi means things whose beauty stems from age. It refers to the patina of age, and the concept that changes due to use may make an object more beautiful and valuable. This also incorporates an appreciation of the cycles of life, as well as careful, artful mending of damage.
+
+The administration front-end for the WABI-SABI publishing platform.
 
 ### Technology
 
