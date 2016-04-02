@@ -4,7 +4,7 @@ Wabi and sabi are two of the key Japanese aesthetic concepts. Their definitions 
 
 Open source platform for open access publishing of great simplicity and beauty.
 
-## Wabi
+## Wabi [![Build Status](https://travis-ci.org/urchinly/wabi.svg?branch=master)](https://travis-ci.org/urchinly/wabi)
 
 Wabi means things that are fresh and simple. It denotes simplicity and quietude, and also incorporates rustic beauty. It includes both that which is made by nature, and that which is made by man. It also can mean an accidental or happenstance element (or perhaps even a small flaw) which gives elegance and uniqueness to the whole, such as the pattern made by a flowing glaze on a ceramic object.
 
@@ -18,9 +18,7 @@ Sabi means things whose beauty stems from age. It refers to the patina of age, a
 
 - Maven 3.2
 - Java 8
-- Docker 10
-
-- Travis [![Build Status](https://travis-ci.org/urchinly/wabi.svg?branch=master)](https://travis-ci.org/urchinly/wabi)
+-  Docker 10
 
 ### Maven Tips
 
