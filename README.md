@@ -10,7 +10,7 @@ Wabi means things that are fresh and simple. It denotes simplicity and quietude,
 
 Wabi digital asset management component of the WABI-SABI publishing platform.
 
-## Sabi
+## Sabi [![Build Status](https://travis-ci.org/urchinly/sabi.svg?branch=master)](https://travis-ci.org/urchinly/sabi)
 
 Sabi means things whose beauty stems from age. It refers to the patina of age, and the concept that changes due to use may make an object more beautiful and valuable. This also incorporates an appreciation of the cycles of life, as well as careful, artful mending of damage.
 
