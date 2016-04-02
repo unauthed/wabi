@@ -20,9 +20,9 @@ Sabi means things whose beauty stems from age. It refers to the patina of age, a
 - Java 8
 - Docker 10
 
-### Maven Tips
+- Travis [![Build Status](https://travis-ci.org/urchinly/wabi.svg?branch=master)](https://travis-ci.org/urchinly/wabi)
 
-[![Build Status](https://travis-ci.org/urchinly/wabi.svg?branch=master)](https://travis-ci.org/urchinly/wabi)
+### Maven Tips
 
 Build all modules
 
