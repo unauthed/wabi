@@ -1,0 +1,14 @@
+*~
+*.bak
+.bash_private
+.project
+.classpath
+.springBeans
+.DS_Store
+.externalToolBuilders/
+.settings/
+.vagrant/
+nbproject/
+node_modules/
+target/
+

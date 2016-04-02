@@ -1,0 +1,202 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>uk.urchinly.mvn</groupId>
+	<artifactId>mvn-wabi-pom</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.3.3.RELEASE</version>
+	</parent>
+
+	<name>Wabi POM</name>
+	<description>Shared Maven POM for Spring Boot based projects.</description>
+	<url>https://wabi.urchinly.uk</url>
+	<inceptionYear>2016</inceptionYear>
+
+	<prerequisites>
+		<maven>3.2.0</maven>
+	</prerequisites>
+
+	<properties>
+		<java.version>1.8</java.version>
+		<docker.image.prefix>urchinly</docker.image.prefix>
+	</properties>
+
+	<organization>
+		<name>Urchinly</name>
+		<url>http://urchinly.uk</url>
+	</organization>
+
+	<licenses>
+		<license>
+			<name>Urchinly Copyright, Version 1.0</name>
+			<url>
+				http://urchinly.uk/licenses/URCHINLY-SOFTWARE-LICENSE-1.0.txt
+			</url>
+			<distribution>repo</distribution>
+			<comments>Urchinly Software License</comments>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>urchinly</id>
+			<name>Andre</name>
+			<email>andre@urchinly.uk</email>
+			<url>http://people.urchinly.uk/andre</url>
+			<organization>Urchinly</organization>
+			<organizationUrl>https://urchinly.uk</organizationUrl>
+			<timezone>0</timezone>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:ssh://git@git.urchinly.uk/urchinly/mvn-wabi-pom.git</connection>
+		<developerConnection>scm:git:ssh://git@git.urchinly.uk/urchinly/mvn-wabi-pom.git</developerConnection>
+		<url>https://git.urchinly.uk/urchinly/mvn-wabi-pom</url>
+	</scm>
+
+	<issueManagement>
+		<system>Jira</system>
+		<url>http://jira.urchinly.uk</url>
+	</issueManagement>
+
+	<ciManagement>
+		<system>Jenkins</system>
+		<url>http://jenkins.urchinly.uk</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<address>wabi@urchinly.uk</address>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+
+	<distributionManagement>
+		<repository>
+			<id>artifacts.urchinly.uk</id>
+			<name>releases</name>
+			<url>https://artifacts.urchinly.uk/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>artifacts.urchinly.uk</id>
+			<name>snapshots</name>
+			<url>https://artifacts.urchinly.uk/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>com.spotify</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>0.4.3</version>
+					<configuration>
+						<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+						<imageTags>
+							<imageTag>${project.version}</imageTag>
+							<imageTag>latest</imageTag>
+						</imageTags>
+						<dockerDirectory>src/main/docker</dockerDirectory>
+						<resources>
+							<resource>
+								<targetPath>/</targetPath>
+								<directory>${project.build.directory}</directory>
+								<include>${project.build.finalName}.jar</include>
+							</resource>
+						</resources>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>com.mycila</groupId>
+					<artifactId>license-maven-plugin</artifactId>
+					<version>2.11</version>
+					<configuration>
+						<header>src/main/license/header.txt</header>
+						<failIfMissing>false</failIfMissing>
+						<strictCheck>true</strictCheck>
+						<aggregate>true</aggregate>
+						<encoding>UTF-8</encoding>
+						<quiet>false</quiet>
+						<useDefaultMapping>true</useDefaultMapping>
+						<mapping>
+							<jmx>XML_STYLE</jmx>
+							<jspf>DYNASCRIPT_STYLE</jspf>
+						</mapping>
+						<excludes>
+							<exclude>**/*.md</exclude>
+							<exclude>**/*.xml</exclude>
+							<exclude>**/*.jmx</exclude>
+							<exclude>**/.springBeans</exclude>
+							<exclude>**/.gitignore</exclude>
+							<exclude>**/gitkeep</exclude>
+							<exclude>**/git.properties</exclude>
+							<exclude>**/README.txt</exclude>
+							<exclude>**/LICENSE.txt</exclude>
+							<exclude>**/NOTICE.txt</exclude>
+							<exclude>**/banner.txt</exclude>
+							<exclude>**/src/main/license/**</exclude>
+							<exclude>**/src/main/assembly/**</exclude>
+							<exclude>**/src/main/deb/**</exclude>
+							<exclude>**/src/main/webapp/resources/**</exclude>
+							<exclude>**/src/test/resources/**</exclude>
+						</excludes>
+						<properties>
+							<year>${project.inceptionYear}</year>
+							<owner>Urchinly</owner>
+							<email>wabi@urchinly.uk</email>
+						</properties>
+					</configuration>
+					<executions>
+						<execution>
+							<id>check-headers</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Specification-Title>${project.name}</Specification-Title>
+							<Specification-Version>${project.version}</Specification-Version>
+							<Specification-Vendor>${project.organization.name}</Specification-Vendor>
+							<Implementation-Title>${project.artifactId}</Implementation-Title>
+							<Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
+							<Implementation-Vendor>${project.organization.name}</Implementation-Vendor>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<configuration>
+					<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

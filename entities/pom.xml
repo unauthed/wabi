@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>uk.urchinly.wabi.shared</groupId>
+	<artifactId>entities</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Wabi Domain Entities</name>
+	<description>Shared domain entities.</description>
+
+	<parent>
+		<groupId>uk.urchinly.mvn</groupId>
+		<artifactId>mvn-wabi-pom</artifactId>
+		<version>1.0.1-SNAPSHOT</version>
+		<relativePath>../mvn-wabi-pom/pom.xml</relativePath>		
+	</parent>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+			</plugin>			
+		</plugins>
+	</build>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-solr</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<groupId>uk.urchinly.wabi</groupId>
+	<artifactId>wabi-project</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0.1-SNAPSHOT</version>
+
+	<name>Wabi Project</name>
+	<description>Digital assset management platform.</description>
+
+	<prerequisites>
+		<maven>3.2.0</maven>
+	</prerequisites>
+
+	<modules>
+		<module>mvn-wabi-pom</module>
+
+		<module>entities</module>
+		<module>ingest-svc</module>
+		<module>expose-svc</module>
+		<module>search-svc</module>
+	</modules>
+
+	<scm>
+		<connection>scm:git:ssh://git@git.urchinly.uk/urchinly/wabi-project.git</connection>
+		<developerConnection>scm:git:ssh://git@git.urchinly.uk/urchinly/wabi-project.git</developerConnection>
+		<url>https://git.urchinly.uk/urchinly/wabi-project</url>
+	</scm>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.11</version>
+				<inherited>false</inherited>
+				<configuration>
+					<header>src/main/license/header.txt</header>
+					<failIfMissing>false</failIfMissing>
+					<strictCheck>true</strictCheck>
+					<aggregate>true</aggregate>
+					<encoding>UTF-8</encoding>
+					<quiet>false</quiet>
+					<useDefaultMapping>true</useDefaultMapping>
+					<mapping>
+						<jmx>XML_STYLE</jmx>
+						<jspf>DYNASCRIPT_STYLE</jspf>
+					</mapping>
+					<excludes>
+						<exclude>**/*.md</exclude>
+						<exclude>**/*.xml</exclude>
+						<exclude>**/*.jmx</exclude>
+						<exclude>**/.springBeans</exclude>
+						<exclude>**/.gitignore</exclude>
+						<exclude>**/gitkeep</exclude>
+						<exclude>**/git.properties</exclude>
+						<exclude>**/README.txt</exclude>
+						<exclude>**/LICENSE.txt</exclude>
+						<exclude>**/NOTICE.txt</exclude>
+						<exclude>**/banner.txt</exclude>
+						<exclude>**/src/main/license/**</exclude>
+						<exclude>**/src/main/assembly/**</exclude>
+						<exclude>**/src/main/deb/**</exclude>
+						<exclude>**/src/main/webapp/resources/**</exclude>
+						<exclude>**/src/test/resources/**</exclude>
+					</excludes>
+					<properties>
+						<year>${project.inceptionYear}</year>
+						<owner>Urchinly</owner>
+						<email>wabi@urchinly.uk</email>
+					</properties>
+				</configuration>
+				<executions>
+					<execution>
+						<id>check-headers</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

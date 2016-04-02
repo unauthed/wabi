@@ -1,0 +1,105 @@
+#
+# Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+#
+
+version: "2"
+services:
+
+  ingest-srv:
+    image: urchinly/ingest-svc
+    environment:
+     - WABI_SHARE=/data/vault
+     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo-srv_1/wabi
+     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
+    ports:
+     - "8081:8081"
+    volumes:
+     - /tmp
+     - wabi-data-volume:/data/vault
+    depends_on:
+     - rabbitmq-srv
+     - mongo-srv
+    networks:
+     - wabi-front-tier
+     - wabi-back-tier
+     
+  expose-srv:
+    image: urchinly/expose-svc
+    environment:
+     - WABI_SHARE=/data/vault
+     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo-srv_1/wabi
+     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
+    ports:
+      - "8082:8082"
+    volumes_from:
+     - ingest-srv:rw
+    depends_on:
+     - rabbitmq-srv
+     - mongo-srv
+    networks:
+     - wabi-front-tier
+     - wabi-back-tier
+     
+  search-srv:
+    image: urchinly/search-svc
+    environment:
+     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
+     - SPRING_DATA_SOLR_HOST=http://wabi_solr-srv_1:8983/solr
+    ports:
+     - "8088:8088"
+    volumes:
+     - /tmp
+    depends_on:
+     - rabbitmq-srv
+     - solr-srv
+    networks:
+     - wabi-front-tier
+     - wabi-back-tier
+     
+  rabbitmq-srv:
+    image: rabbitmq:3-management
+    environment:
+     - RABBITMQ_NODENAME=wabi
+     - RABBITMQ_ERLANG_COOKIE=wabi
+     - RABBITMQ_DEFAULT_USER=guest
+     - RABBITMQ_DEFAULT_PASS=guest
+     - RABBITMQ_DEFAULT_VHOST=/
+    ports:
+     - "5672:5672"
+     - "15672:15672"
+    networks:
+     - wabi-back-tier
+    labels:
+     - "uk.urchinly.tech=data"
+     
+  solr-srv:
+    image: solr-testing
+    ports:
+     - "8983:8983"
+    volumes:
+     - wabi-data-volume:/opt/solr/server/solr/wabi_core/data
+    networks:
+     - wabi-back-tier
+    labels:
+     - "uk.urchinly.tech=data"
+     
+  mongo-srv:
+    image: mongo
+    ports:
+     - "27017:27017"
+    volumes:
+     - wabi-data-volume:/data/db
+    networks:
+     - wabi-back-tier
+    labels:
+     - "uk.urchinly.tech=data"
+     
+volumes:
+  wabi-data-volume:
+    driver: local
+    
+networks:
+  wabi-front-tier:
+    driver: bridge
+  wabi-back-tier:
+    driver: bridge
