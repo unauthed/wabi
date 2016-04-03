@@ -18,7 +18,7 @@ public class SearchController {
 	private AssetRepository assetRepository;
 
 	@RequestMapping(path = "/search", method = RequestMethod.GET)
-	public List<SolrAsset> search(@RequestParam(value = "userId", defaultValue = "test") String userId) {
+	public List<Asset> search(@RequestParam(value = "userId", defaultValue = "test") String userId) {
 		return this.assetRepository.findByUserId(userId);
 	}
 }

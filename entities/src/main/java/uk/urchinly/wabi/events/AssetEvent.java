@@ -1,41 +1,30 @@
 /**
  * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
  */
-package uk.urchinly.wabi.search;
+package uk.urchinly.wabi.events;
 
 import java.util.List;
 
-import org.apache.solr.client.solrj.beans.Field;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.solr.core.mapping.SolrDocument;
+import uk.urchinly.wabi.entities.WabiAsset;
 
-import uk.urchinly.wabi.entities.Asset;
-
-@SolrDocument
-public class SolrAsset implements Asset {
+public class AssetEvent implements WabiAsset {
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Field
 	private String id;
 
-	@Field
 	private String userId;
 
-	@Field
 	private String fileName;
 
-	@Field
 	private Double price;
 
-	@Field("cat")
 	private List<String> category;
 
-	public SolrAsset() {
+	public AssetEvent() {
 	}
 
-	public SolrAsset(String userId, String fileName, Double price, List<String> category) {
+	public AssetEvent(String userId, String fileName, Double price, List<String> category) {
 		super();
 		this.userId = userId;
 		this.fileName = fileName;
@@ -95,8 +84,7 @@ public class SolrAsset implements Asset {
 
 	@Override
 	public String toString() {
-		return "Asset [id=" + this.id + ", userId=" + this.userId + ", fileName=" + this.fileName + ", price="
+		return "AssetEvent [id=" + this.id + ", userId=" + this.userId + ", fileName=" + this.fileName + ", price="
 				+ this.price + ", category=" + this.category + "]";
 	}
-
 }

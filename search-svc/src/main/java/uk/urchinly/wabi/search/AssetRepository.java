@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.data.solr.repository.SolrCrudRepository;
 
-public interface AssetRepository extends SolrCrudRepository<SolrAsset, String> {
+public interface AssetRepository extends SolrCrudRepository<Asset, String> {
 
-	List<SolrAsset> findByUserId(String userId);
+	List<Asset> findByUserId(String userId);
 }

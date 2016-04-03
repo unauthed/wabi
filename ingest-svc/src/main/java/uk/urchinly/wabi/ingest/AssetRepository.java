@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import uk.urchinly.wabi.entities.Asset;
+import uk.urchinly.wabi.entities.WabiAsset;
 
-public interface AssetRepository extends MongoRepository<MongoAsset, String> {
+public interface AssetRepository extends MongoRepository<Asset, String> {
 
-	public List<Asset> findByUserId(String userId);
+	public List<WabiAsset> findByUserId(String userId);
 
 }

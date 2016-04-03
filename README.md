@@ -16,11 +16,23 @@ Sabi means things whose beauty stems from age. It refers to the patina of age, a
 
 The administration front-end for the WABI-SABI publishing platform.
 
-### Technology
+### Build and Run
+
+First we build the Docker containers for our third-party services RabbitMQ, Solr and MongoDB. Next we build the platform micro-services as Docker containers.
+To run the applicationis to orchestrate the platform with Docker Compose.
+Test the application by uploading a file to http://localhost:8081/upload and verify with downloading the file from http:localhost:8082/assets.
 
 - Maven 3.2
 - Java 8
--  Docker 10
+- Docker 10
+
+```
+./wabi_solr/build.sh
+./wabi_rabbitmq/build.sh
+mvn clean install
+mvn docker:build
+docker-compose up
+```
 
 ### Maven Tips
 

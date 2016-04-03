@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
-import uk.urchinly.wabi.entities.Asset;
+import uk.urchinly.wabi.events.AssetEvent;
 import uk.urchinly.wabi.events.AuditEvent;
 
 @SpringBootApplication
@@ -43,9 +44,13 @@ public class Application {
 	}
 
 	@RabbitHandler
-	public void process(@Payload SolrAsset asset) {
-		Asset savedAsset = this.assetRepository.save(asset);
-		this.rabbitTemplate.convertAndSend(MessagingConstants.AUDIT_ROUTE, new AuditEvent("success", asset));
+	public void process(@Payload() AssetEvent assetEvent) {
+		Asset solrAsset = new Asset();
+		BeanUtils.copyProperties(assetEvent, solrAsset);
+
+		Asset savedAsset = this.assetRepository.save(solrAsset);
+		this.rabbitTemplate.convertAndSend(MessagingConstants.AUDIT_ROUTE, new AuditEvent("success", savedAsset));
+
 		logger.debug("Added new asset {} to search index.", savedAsset.getId());
 	}
 

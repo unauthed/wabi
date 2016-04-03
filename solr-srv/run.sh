@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-docker build -t solr-testing .
+docker run -d -p 8983:8983 --name solr -h solr urchinly/wabi-solr
 
 

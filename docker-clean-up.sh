@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+# Copyright (C) ${year} ${owner} <${email}>
 #
 
 

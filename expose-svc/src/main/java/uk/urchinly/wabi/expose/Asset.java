@@ -8,10 +8,10 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import uk.urchinly.wabi.entities.Asset;
+import uk.urchinly.wabi.entities.WabiAsset;
 
 @Document
-public class MongoAsset implements Asset {
+public class Asset implements WabiAsset {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,10 +26,10 @@ public class MongoAsset implements Asset {
 
 	private List<String> category;
 
-	public MongoAsset() {
+	public Asset() {
 	}
 
-	public MongoAsset(String userId, String fileName, Double price, List<String> category) {
+	public Asset(String userId, String fileName, Double price, List<String> category) {
 		super();
 		this.userId = userId;
 		this.fileName = fileName;

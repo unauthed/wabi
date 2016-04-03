@@ -6,7 +6,7 @@ package uk.urchinly.wabi.entities;
 import java.io.Serializable;
 import java.util.List;
 
-public interface Asset extends Serializable {
+public interface WabiAsset extends Serializable {
 
 	String getId();
 

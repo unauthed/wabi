@@ -4,19 +4,18 @@
 
 	<groupId>uk.urchinly.mvn</groupId>
 	<artifactId>mvn-wabi-pom</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<version>1.0.1-SNAPSHOT</version>
+	<inceptionYear>2016</inceptionYear>
+	<name>Wabi POM</name>
+	<description>Shared Maven POM for Spring Boot based projects.</description>
+	<url>https://wabi.urchinly.uk</url>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>1.3.3.RELEASE</version>
 	</parent>
-
-	<name>Wabi POM</name>
-	<description>Shared Maven POM for Spring Boot based projects.</description>
-	<url>https://wabi.urchinly.uk</url>
-	<inceptionYear>2016</inceptionYear>
 
 	<prerequisites>
 		<maven>3.2.0</maven>
@@ -90,7 +89,6 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -102,8 +100,6 @@
 						<header>src/main/license/header.txt</header>
 						<failIfMissing>false</failIfMissing>
 						<strictCheck>true</strictCheck>
-						<aggregate>true</aggregate>
-						<encoding>UTF-8</encoding>
 						<quiet>false</quiet>
 						<useDefaultMapping>true</useDefaultMapping>
 						<mapping>
@@ -121,15 +117,13 @@
 							<exclude>**/README.txt</exclude>
 							<exclude>**/LICENSE.txt</exclude>
 							<exclude>**/NOTICE.txt</exclude>
-							<exclude>**/banner.txt</exclude>
+							<exclude>**/src/deb/**</exclude>
 							<exclude>**/src/main/license/**</exclude>
 							<exclude>**/src/main/assembly/**</exclude>
-							<exclude>**/src/main/deb/**</exclude>
 							<exclude>**/src/main/webapp/resources/**</exclude>
 							<exclude>**/src/test/resources/**</exclude>
 						</excludes>
 						<properties>
-							<year>${project.inceptionYear}</year>
 							<owner>Urchinly</owner>
 							<email>wabi@urchinly.uk</email>
 						</properties>
@@ -183,7 +177,7 @@
 										<type>file</type>
 										<mapper>
 											<type>perm</type>
-											<prefix>/usr/share/jdeb/lib</prefix>
+											<prefix>/opt/wabi/ingest</prefix>
 										</mapper>
 									</data>
 								</dataSet>

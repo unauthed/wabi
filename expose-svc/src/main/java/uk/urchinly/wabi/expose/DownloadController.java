@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
-import uk.urchinly.wabi.entities.Asset;
+import uk.urchinly.wabi.entities.WabiAsset;
 import uk.urchinly.wabi.events.UsageEvent;
 
 @RestController
@@ -34,17 +34,17 @@ public class DownloadController {
 	private RabbitTemplate rabbitTemplate;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/assets")
-	public List<MongoAsset> getAssets() {
+	public List<Asset> getAssets() {
 
-		List<MongoAsset> assets = this.assetMongoRepository.findAll();
+		List<Asset> assets = this.assetMongoRepository.findAll();
 
 		return assets;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/assets/{assetId}")
-	public List<Asset> getAsset(@PathVariable String assetId) {
+	public List<WabiAsset> getAsset(@PathVariable String assetId) {
 
-		List<Asset> assets = this.assetMongoRepository.findByUserId(assetId);
+		List<WabiAsset> assets = this.assetMongoRepository.findByUserId(assetId);
 		this.rabbitTemplate.convertAndSend(MessagingConstants.USAGE_ROUTE,
 				new UsageEvent("download asset", assets.get(0)));
 
@@ -52,9 +52,9 @@ public class DownloadController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/assets/user/{userId}")
-	public List<Asset> getUserAssets(@PathVariable String userId) {
+	public List<WabiAsset> getUserAssets(@PathVariable String userId) {
 
-		List<Asset> assets = this.assetMongoRepository.findByUserId(userId);
+		List<WabiAsset> assets = this.assetMongoRepository.findByUserId(userId);
 
 		return assets;
 	}

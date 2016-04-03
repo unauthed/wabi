@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>uk.urchinly.wabi</groupId>
 	<artifactId>wabi-project</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.1-SNAPSHOT</version>
-
+	<inceptionYear>2016</inceptionYear>
 	<name>Wabi Project</name>
 	<description>Digital asset management platform.</description>
 
@@ -36,19 +36,9 @@
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>2.11</version>
-				<inherited>false</inherited>
 				<configuration>
 					<header>src/main/license/header.txt</header>
 					<failIfMissing>false</failIfMissing>
-					<strictCheck>true</strictCheck>
-					<aggregate>true</aggregate>
-					<encoding>UTF-8</encoding>
-					<quiet>false</quiet>
-					<useDefaultMapping>true</useDefaultMapping>
-					<mapping>
-						<jmx>XML_STYLE</jmx>
-						<jspf>DYNASCRIPT_STYLE</jspf>
-					</mapping>
 					<excludes>
 						<exclude>**/*.md</exclude>
 						<exclude>**/*.xml</exclude>
@@ -60,18 +50,13 @@
 						<exclude>**/README.txt</exclude>
 						<exclude>**/LICENSE.txt</exclude>
 						<exclude>**/NOTICE.txt</exclude>
-						<exclude>**/banner.txt</exclude>
+						<exclude>**/src/deb/**</exclude>
+						<exclude>**/solr-srv/wabi_core/**</exclude>						
 						<exclude>**/src/main/license/**</exclude>
 						<exclude>**/src/main/assembly/**</exclude>
-						<exclude>**/src/main/deb/**</exclude>
 						<exclude>**/src/main/webapp/resources/**</exclude>
 						<exclude>**/src/test/resources/**</exclude>
 					</excludes>
-					<properties>
-						<year>${project.inceptionYear}</year>
-						<owner>Urchinly</owner>
-						<email>wabi@urchinly.uk</email>
-					</properties>
 				</configuration>
 				<executions>
 					<execution>
