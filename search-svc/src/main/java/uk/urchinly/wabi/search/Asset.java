@@ -8,10 +8,11 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import uk.urchinly.wabi.entities.AbstractEntity;
 import uk.urchinly.wabi.entities.WabiAsset;
 
 @Document(indexName = "asset", type = "asset", shards = 1, replicas = 0, refreshInterval = "-1")
-public class Asset implements WabiAsset {
+public class Asset extends AbstractEntity implements WabiAsset {
 
 	private static final long serialVersionUID = 1L;
 
@@ -86,11 +87,4 @@ public class Asset implements WabiAsset {
 	public void setCategory(List<String> category) {
 		this.category = category;
 	}
-
-	@Override
-	public String toString() {
-		return "Asset [id=" + this.id + ", userId=" + this.userId + ", fileName=" + this.fileName + ", price="
-				+ this.price + ", category=" + this.category + "]";
-	}
-
 }

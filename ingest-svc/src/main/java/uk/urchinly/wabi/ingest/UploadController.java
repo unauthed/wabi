@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -30,7 +29,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
 import uk.urchinly.wabi.entities.WabiAsset;
-import uk.urchinly.wabi.events.AssetEvent;
 
 @Controller
 public class UploadController {
@@ -107,9 +105,7 @@ public class UploadController {
 	private void saveAsset(Asset asset) {
 		Asset savedAsset = this.assetMongoRepository.save(asset);
 
-		AssetEvent assetEvent = new AssetEvent();
-		BeanUtils.copyProperties(savedAsset, assetEvent);
-		this.rabbitTemplate.convertAndSend(MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE, assetEvent);
+		this.rabbitTemplate.convertAndSend(MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE, savedAsset.toString());
 
 		logger.debug("Ingested asset with id {}.", savedAsset.getId());
 	}

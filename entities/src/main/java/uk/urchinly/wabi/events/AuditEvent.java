@@ -3,19 +3,18 @@
  */
 package uk.urchinly.wabi.events;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class AuditEvent implements Serializable {
+public class AuditEvent extends AbstractEvent {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private String status;
-	
+
 	private Object object;
-	
+
 	private LocalDateTime currentTime = LocalDateTime.now();
-	
+
 	public AuditEvent(String status, Object object) {
 		super();
 		this.status = status;
@@ -40,6 +39,5 @@ public class AuditEvent implements Serializable {
 
 	public LocalDateTime getCurrentTime() {
 		return this.currentTime;
-	}	
-	
+	}
 }

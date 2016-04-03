@@ -3,23 +3,22 @@
  */
 package uk.urchinly.wabi.events;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class UsageEvent implements Serializable {
+public class UsageEvent extends AbstractEvent {
 
 	private static final long serialVersionUID = 1L;
 
 	private String status;
-	
-	private Object object;
-	
+
+	private String object;
+
 	private LocalDateTime currentTime = LocalDateTime.now();
-	
+
 	public UsageEvent(String status, Object object) {
 		super();
 		this.status = status;
-		this.object = object;
+		this.object = object.toString();
 	}
 
 	public String getStatus() {
@@ -30,16 +29,15 @@ public class UsageEvent implements Serializable {
 		this.status = status;
 	}
 
-	public Object getObject() {
+	public String getObject() {
 		return this.object;
 	}
 
-	public void setObject(Object object) {
+	public void setObject(String object) {
 		this.object = object;
 	}
 
 	public LocalDateTime getCurrentTime() {
 		return this.currentTime;
-	}	
-	
+	}
 }

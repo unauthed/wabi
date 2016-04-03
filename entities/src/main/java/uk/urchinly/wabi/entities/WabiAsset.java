@@ -27,5 +27,4 @@ public interface WabiAsset extends Serializable {
 	List<String> getCategory();
 
 	void setCategory(List<String> category);
-
 }

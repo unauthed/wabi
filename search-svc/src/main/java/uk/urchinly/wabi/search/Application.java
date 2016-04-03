@@ -3,6 +3,8 @@
  */
 package uk.urchinly.wabi.search;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -16,6 +18,10 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
 import uk.urchinly.wabi.events.AssetEvent;
@@ -49,9 +55,23 @@ public class Application {
 		BeanUtils.copyProperties(assetEvent, newAsset);
 
 		Asset savedAsset = this.assetRepository.save(newAsset);
-		this.rabbitTemplate.convertAndSend(MessagingConstants.AUDIT_ROUTE, new AuditEvent("success", savedAsset));
+
+		this.rabbitTemplate.convertAndSend(MessagingConstants.AUDIT_ROUTE,
+				new AuditEvent("success", savedAsset).toString());
 
 		logger.debug("Added new asset {} to search index.", savedAsset.getId());
 	}
 
+	@RabbitHandler
+	public void process(@Payload() String assetEvent) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		Asset newAsset = objectMapper.readValue(assetEvent, Asset.class);
+
+		Asset savedAsset = this.assetRepository.save(newAsset);
+
+		this.rabbitTemplate.convertAndSend(MessagingConstants.AUDIT_ROUTE,
+				new AuditEvent("success", savedAsset).toString());
+
+		logger.debug("Added new asset {} to search index.", savedAsset.getId());
+	}
 }

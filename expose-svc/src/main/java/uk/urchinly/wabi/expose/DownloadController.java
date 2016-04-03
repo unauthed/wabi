@@ -3,13 +3,14 @@
  */
 package uk.urchinly.wabi.expose;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,27 +34,38 @@ public class DownloadController {
 	private RabbitTemplate rabbitTemplate;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/assets")
-	public List<Asset> getAssets() {
+	public Page<Asset> getAssets(@PageableDefault(page = 0, size = 20) Pageable pageable) {
 
-		List<Asset> assets = this.assetMongoRepository.findAll();
+		Page<Asset> assets = this.assetMongoRepository.findAll(pageable);
 
 		return assets;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/assets/{assetId}")
-	public List<Asset> getAsset(@PathVariable String assetId) {
+	public Asset getAsset(@PathVariable String assetId) {
 
-		List<Asset> assets = this.assetMongoRepository.findByUserId(assetId);
+		Asset asset = this.assetMongoRepository.findOne(assetId);
+
 		this.rabbitTemplate.convertAndSend(MessagingConstants.USAGE_ROUTE,
-				new UsageEvent("download asset", assets.get(0)));
+				new UsageEvent("view asset", asset.toString()));
 
-		return assets;
+		return asset;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/assets/user/{userId}")
-	public List<Asset> getUserAssets(@PathVariable String userId) {
+	public Page<Asset> getUserAssets(@PathVariable String userId,
+			@PageableDefault(page = 0, size = 20) Pageable pageable) {
 
-		List<Asset> assets = this.assetMongoRepository.findByUserId(userId);
+		Page<Asset> assets = this.assetMongoRepository.findByUserId(userId, pageable);
+
+		for (Asset asset : assets) {
+			this.rabbitTemplate.convertAndSend(MessagingConstants.USAGE_ROUTE,
+					new UsageEvent("view asset", asset.toString()));
+		}
+
+		if (!assets.hasContent()) {
+			logger.debug("Download assets failed for userId {}, no asset found.", userId);
+		}
 
 		return assets;
 	}

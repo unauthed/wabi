@@ -19,6 +19,7 @@ public class AmqpQueues {
 	public AmqpQueues(AmqpAdmin amqpAdmin) {
 
 		amqpAdmin.declareQueue(new Queue(MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE));
+		amqpAdmin.declareQueue(new Queue(MessagingConstants.AUDIT_ROUTE));
 	}
 
 }

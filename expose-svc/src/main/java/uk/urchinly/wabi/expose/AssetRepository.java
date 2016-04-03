@@ -3,12 +3,11 @@
  */
 package uk.urchinly.wabi.expose;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface AssetRepository extends MongoRepository<Asset, String> {
 
-	public List<Asset> findByUserId(String userId);
-
+	public Page<Asset> findByUserId(String userId, Pageable pageable);
 }

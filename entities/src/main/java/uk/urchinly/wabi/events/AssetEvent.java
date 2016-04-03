@@ -7,7 +7,7 @@ import java.util.List;
 
 import uk.urchinly.wabi.entities.WabiAsset;
 
-public class AssetEvent implements WabiAsset {
+public class AssetEvent extends AbstractEvent implements WabiAsset {
 
 	private static final long serialVersionUID = 1L;
 
@@ -80,11 +80,5 @@ public class AssetEvent implements WabiAsset {
 	@Override
 	public void setCategory(List<String> category) {
 		this.category = category;
-	}
-
-	@Override
-	public String toString() {
-		return "AssetEvent [id=" + this.id + ", userId=" + this.userId + ", fileName=" + this.fileName + ", price="
-				+ this.price + ", category=" + this.category + "]";
 	}
 }
