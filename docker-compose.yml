@@ -5,61 +5,61 @@
 version: "2"
 services:
 
-  ingest-srv:
+  ingest:
     image: urchinly/ingest-svc
     environment:
      - WABI_SHARE=/data/vault
-     - SPRING_PROFILES_ACTIVE=prod    
-     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo-srv_1/wabi
-     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
+     - SPRING_PROFILES_ACTIVE=prod
+     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
+     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
     ports:
      - "8081:8081"
     volumes:
      - /tmp
-     - data-volume:/data/vault
+     - shared-volume:/data/vault
     depends_on:
-     - rabbitmq-srv
-     - mongo-srv
+     - rabbitmq
+     - mongo
     networks:
      - front-tier
      - back-tier
-     
-  expose-srv:
+
+  expose:
     image: urchinly/expose-svc
     environment:
      - WABI_SHARE=/data/vault
-     - SPRING_PROFILES_ACTIVE=prod     
-     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo-srv_1/wabi
-     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
+     - SPRING_PROFILES_ACTIVE=prod
+     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
+     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
     ports:
       - "8082:8082"
     volumes_from:
-     - ingest-srv:rw
+     - ingest:rw
     depends_on:
-     - rabbitmq-srv
-     - mongo-srv
+     - rabbitmq
+     - mongo
     networks:
      - front-tier
      - back-tier
-     
-  search-srv:
+
+  search:
     image: urchinly/search-svc
     environment:
      - SPRING_PROFILES_ACTIVE=prod
-     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq-srv_1,wabi_rabbitmq-srv_2,wabi_rabbitmq-srv_3
-     - SPRING_DATA_SOLR_HOST=http://wabi_solr-srv_1:8983/solr
+     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
+     - SPRING_DATA_SOLR_HOST=http://wabi_elasticsearch_1
     ports:
      - "8088:8088"
     volumes:
      - /tmp
     depends_on:
-     - rabbitmq-srv
-     - solr-srv
+     - rabbitmq
+     - elasticsearch
     networks:
      - front-tier
      - back-tier
-     
-  rabbitmq-srv:
+
+  rabbitmq:
     image: urchinly/wabi-rabbitmq
     environment:
      - RABBITMQ_NODENAME=wabi
@@ -74,33 +74,38 @@ services:
      - back-tier
     labels:
      - "uk.urchinly.tech=data"
-     
-  solr-srv:
-    image: urchinly/wabi-solr
+
+  elasticsearch:
+    image: elasticsearch:1.5.2
     ports:
-     - "8983:8983"
+     - "9200:9200"
+     - "9300:9300"
     volumes:
-     - data-volume:/opt/solr/server/solr/wabi_core/data
+     - elasticsearch-volume:/usr/share/elasticsearch/data
     networks:
      - back-tier
     labels:
      - "uk.urchinly.tech=data"
-     
-  mongo-srv:
+
+  mongo:
     image: mongo
     ports:
      - "27017:27017"
     volumes:
-     - data-volume:/data/db
+     - mongo-volume:/data/db
     networks:
      - back-tier
     labels:
      - "uk.urchinly.tech=data"
-     
+
 volumes:
-  data-volume:
+  shared-volume:
     driver: local
-    
+  mongo-volume:
+    driver: local
+  elasticsearch-volume:
+    driver: local
+
 networks:
   front-tier:
     driver: bridge

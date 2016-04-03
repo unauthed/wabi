@@ -18,25 +18,26 @@ The administration front-end for the WABI-SABI publishing platform.
 
 ### Build and Run
 
-First we build the Docker containers for our third-party services RabbitMQ, Solr and MongoDB. Next we build the platform micro-services as Docker containers.
-To run the applicationis to orchestrate the platform with Docker Compose.
-Test the application by uploading a file to http://localhost:8081/upload and verify with downloading the file from http:localhost:8082/assets.
+First we build the Docker containers for our third-party services RabbitMQ, ElasticSearch and MongoDB. Next we build the platform micro-services as Docker containers.
+To start the application we use Docker Compose. Test the application by uploading a file to _http://localhost:8081/upload_ and verify with downloading the file from _http:localhost:8082/assets_.
 
 - Maven 3.2
 - Java 8
 - Docker 10
 
 ```
-./wabi_solr/build.sh
-./wabi_rabbitmq/build.sh
-mvn clean install
-mvn docker:build
+./elasticsearch/build.sh
+./rabbitmq/build.sh
+mvn clean install -P prod
+./ingest-svc/mvn docker:build
+./expose-svc/mvn docker:build
+./search-svc/mvn docker:build
 docker-compose up
 ```
 
 ### Maven Tips
 
-Build all modules
+Build a module
 
 * `mvn clean install`
 

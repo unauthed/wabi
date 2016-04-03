@@ -45,10 +45,10 @@ public class Application {
 
 	@RabbitHandler
 	public void process(@Payload() AssetEvent assetEvent) {
-		Asset solrAsset = new Asset();
-		BeanUtils.copyProperties(assetEvent, solrAsset);
+		Asset newAsset = new Asset();
+		BeanUtils.copyProperties(assetEvent, newAsset);
 
-		Asset savedAsset = this.assetRepository.save(solrAsset);
+		Asset savedAsset = this.assetRepository.save(newAsset);
 		this.rabbitTemplate.convertAndSend(MessagingConstants.AUDIT_ROUTE, new AuditEvent("success", savedAsset));
 
 		logger.debug("Added new asset {} to search index.", savedAsset.getId());

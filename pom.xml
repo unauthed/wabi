@@ -51,7 +51,7 @@
 						<exclude>**/LICENSE.txt</exclude>
 						<exclude>**/NOTICE.txt</exclude>
 						<exclude>**/src/deb/**</exclude>
-						<exclude>**/solr-srv/wabi_core/**</exclude>						
+						<exclude>**/solr/wabi_core/**</exclude>
 						<exclude>**/src/main/license/**</exclude>
 						<exclude>**/src/main/assembly/**</exclude>
 						<exclude>**/src/main/webapp/resources/**</exclude>

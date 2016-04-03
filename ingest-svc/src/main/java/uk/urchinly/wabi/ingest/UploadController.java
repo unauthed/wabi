@@ -105,10 +105,10 @@ public class UploadController {
 
 	@Transactional
 	private void saveAsset(Asset asset) {
-		AssetEvent assetEvent = new AssetEvent();
-		BeanUtils.copyProperties(asset, assetEvent);
-
 		Asset savedAsset = this.assetMongoRepository.save(asset);
+
+		AssetEvent assetEvent = new AssetEvent();
+		BeanUtils.copyProperties(savedAsset, assetEvent);
 		this.rabbitTemplate.convertAndSend(MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE, assetEvent);
 
 		logger.debug("Ingested asset with id {}.", savedAsset.getId());

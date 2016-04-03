@@ -5,32 +5,25 @@ package uk.urchinly.wabi.search;
 
 import java.util.List;
 
-import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.solr.core.mapping.SolrDocument;
+import org.springframework.data.elasticsearch.annotations.Document;
 
-import uk.urchinly.wabi.constants.SearchingConstants;
 import uk.urchinly.wabi.entities.WabiAsset;
 
-@SolrDocument(solrCoreName = SearchingConstants.SOLR_WABI_CORE)
+@Document(indexName = "asset", type = "asset", shards = 1, replicas = 0, refreshInterval = "-1")
 public class Asset implements WabiAsset {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Field
 	private String id;
 
-	@Field
 	private String userId;
 
-	@Field
 	private String fileName;
 
-	@Field
 	private Double price;
 
-	@Field("cat")
 	private List<String> category;
 
 	public Asset() {
