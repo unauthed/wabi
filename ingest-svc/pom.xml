@@ -15,7 +15,7 @@
 		<groupId>uk.urchinly.mvn</groupId>
 		<artifactId>mvn-wabi-pom</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath>../mvn-wabi-pom/pom.xml</relativePath>		
 	</parent>
 
 	<build>
