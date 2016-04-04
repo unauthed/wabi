@@ -29,9 +29,9 @@ To start the application we use Docker Compose. Test the application by uploadin
 ./elasticsearch/build.sh
 ./rabbitmq/build.sh
 mvn clean install -P prod
-./ingest-svc/mvn docker:build
-./expose-svc/mvn docker:build
-./search-svc/mvn docker:build
+./wabi-ingest/mvn docker:build
+./wabi-expose/mvn docker:build
+./wabi-search/mvn docker:build
 docker-compose up
 ```
 
@@ -47,7 +47,7 @@ Run a module
 
 * `mvn spring-boot:run -DskipTests`
 
-* `mvn clean install && java -jar target/ingest-svc-*.jar`
+* `mvn clean install && java -jar target/wabi-*.jar`
 
 Create Docker image
 
@@ -71,8 +71,8 @@ Check for latest versions
 
 Run one module
 
-* `docker run -d -e "SPRING_PROFILES_ACTIVE=prod" -p 8088:8088 --name search -h search urchinly/search-svc`
-* `docker exec -it search /bin/sh`
+* `docker run -d -e "SPRING_PROFILES_ACTIVE=prod" -p 8081:8081 --name ingest -h ingest urchinly/wabi-ingest`
+* `docker exec -it ingest /bin/sh`
 
 Run all modules
 
@@ -89,4 +89,8 @@ Remove all images
 Remove all volumes
 
 * `docker volume rm $(docker volume ls -q -f dangling=true)`
+
+Remove all networks
+
+* `docker network rm $(docker network ls -q)`
 
