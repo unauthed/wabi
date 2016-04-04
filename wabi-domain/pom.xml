@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>uk.urchinly.wabi.shared</groupId>
-	<artifactId>entities</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>wabi-domain</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
 	<name>Wabi Domain Entities</name>
 	<description>Shared domain entities.</description>
 	<inceptionYear>2016</inceptionYear>
@@ -13,7 +13,7 @@
 		<groupId>uk.urchinly.mvn</groupId>
 		<artifactId>mvn-wabi-pom</artifactId>
 		<version>1.0.1-SNAPSHOT</version>
-		<relativePath>../mvn-wabi-pom/pom.xml</relativePath>		
+		<relativePath>../mvn-wabi-pom/pom.xml</relativePath>
 	</parent>
 
 	<build>
@@ -21,10 +21,10 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-			</plugin>			
+			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

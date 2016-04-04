@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>uk.urchinly.wabi</groupId>
-	<artifactId>search-svc</artifactId>
+	<artifactId>wabi-search</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Wabi Search Service</name>
-	<description>Part of the Wabi publishing platform.</description>
+	<description>Advanced searching assets. Part of the Wabi-Sabi DAM platform.</description>
 	<inceptionYear>2016</inceptionYear>
 
 	<parent>
@@ -40,8 +40,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>uk.urchinly.wabi.shared</groupId>
-			<artifactId>entities</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>wabi-domain</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

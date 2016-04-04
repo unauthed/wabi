@@ -125,7 +125,7 @@
 						</excludes>
 						<properties>
 							<owner>Urchinly</owner>
-							<email>wabi@urchinly.uk</email>
+							<email>wabisabi@urchinly.uk</email>
 						</properties>
 					</configuration>
 					<executions>

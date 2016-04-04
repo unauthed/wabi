@@ -3,7 +3,6 @@
 # Copyright (C) ${year} ${owner} <${email}>
 #
 
-
 echo remove containers
 docker rm $(docker ps -q -a)
 

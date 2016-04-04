@@ -1,12 +1,12 @@
 #
-# Copyright (C) ${year} ${owner} <${email}>
+# Copyright (C) 2016 Urchinly <wabi-sabi@urchinly.uk>
 #
 
 version: "2"
-services:
 
+services:
   ingest:
-    image: urchinly/ingest-svc
+    image: urchinly/wabi-ingest
     environment:
      - WABI_SHARE=/data/vault
      - SPRING_PROFILES_ACTIVE=prod
@@ -21,11 +21,11 @@ services:
      - rabbitmq
      - mongo
     networks:
-     - front-tier
-     - back-tier
+     - sabi-tier
+     - wabi-tier
 
   expose:
-    image: urchinly/expose-svc
+    image: urchinly/wabi-expose
     environment:
      - WABI_SHARE=/data/vault
      - SPRING_PROFILES_ACTIVE=prod
@@ -39,11 +39,11 @@ services:
      - rabbitmq
      - mongo
     networks:
-     - front-tier
-     - back-tier
+     - sabi-tier
+     - wabi-tier
 
   search:
-    image: urchinly/search-svc
+    image: urchinly/wabi-search
     environment:
      - SPRING_PROFILES_ACTIVE=prod
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
@@ -56,8 +56,8 @@ services:
      - rabbitmq
      - elasticsearch
     networks:
-     - front-tier
-     - back-tier
+     - sabi-tier
+     - wabi-tier
 
   rabbitmq:
     image: urchinly/wabi-rabbitmq
@@ -73,7 +73,7 @@ services:
     volumes:
      - rabbitmq-volume:/var/lib/rabbitmq/mnesia/wabi
     networks:
-     - back-tier
+     - wabi-tier
     labels:
      - "uk.urchinly.tech=data"
 
@@ -85,7 +85,7 @@ services:
     volumes:
      - elasticsearch-volume:/usr/share/elasticsearch/data
     networks:
-     - back-tier
+     - wabi-tier
     labels:
      - "uk.urchinly.tech=data"
 
@@ -96,7 +96,7 @@ services:
     volumes:
      - mongo-volume:/data/db
     networks:
-     - back-tier
+     - wabi-tier
     labels:
      - "uk.urchinly.tech=data"
 
@@ -111,7 +111,7 @@ volumes:
     driver: local
 
 networks:
-  front-tier:
+  sabi-tier:
     driver: bridge
-  back-tier:
+  wabi-tier:
     driver: bridge
