@@ -37,4 +37,4 @@ endpoints:
     
 app:
   share:
-    path: ${WABI_SHARE:./target/app-share}
+    path: ${WABI_SHARE:./target}
