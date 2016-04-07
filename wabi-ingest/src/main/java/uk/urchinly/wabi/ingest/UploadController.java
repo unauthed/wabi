@@ -6,31 +6,29 @@ package uk.urchinly.wabi.ingest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
-import uk.urchinly.wabi.entities.WabiAsset;
 
-@Controller
+@RestController
+@CrossOrigin
 public class UploadController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
@@ -44,61 +42,34 @@ public class UploadController {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 
-	@RequestMapping(method = RequestMethod.GET, value = "/upload")
-	public String provideUploadInfo(Model model) {
-
-		List<WabiAsset> list = this.assetMongoRepository.findByUserId("test");
-
-		model.addAttribute("mongos", list);
-
-		File rootFolder = new File(wabiSharePath);
-
-		List<String> fileNames = Arrays.stream(rootFolder.listFiles()).map(f -> f.getName())
-				.collect(Collectors.toList());
-
-		model.addAttribute("files",
-				Arrays.stream(rootFolder.listFiles()).sorted(Comparator.comparingLong(f -> -1 * f.lastModified()))
-						.map(f -> f.getName()).collect(Collectors.toList()));
-
-		return "uploadForm";
-	}
-
 	@RequestMapping(method = RequestMethod.POST, value = "/upload")
-	public String handleFileUpload(@RequestParam("name") String name, @RequestParam("file") MultipartFile file,
-			RedirectAttributes redirectAttributes) {
+	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 
-		if (name.contains("/")) {
-			redirectAttributes.addFlashAttribute("message", "Folder separators not allowed");
-			return "redirect:upload";
-		}
-		if (name.contains("/")) {
-			redirectAttributes.addFlashAttribute("message", "Relative pathnames not allowed");
-			return "redirect:upload";
+		if (file.isEmpty()) {
+			logger.debug("Upload file is empty.");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed with empty file");
 		}
 
-		if (!file.isEmpty()) {
-			try {
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(new File(wabiSharePath + "/" + name)));
-				FileCopyUtils.copy(file.getInputStream(), stream);
-				stream.close();
+		BufferedOutputStream outputStream = null;
 
-				Asset asset = new Asset(name, file.getOriginalFilename(), (double) file.getSize(),
-						Collections.EMPTY_LIST);
+		try {
+			File outputFile = new File(wabiSharePath + "/" + file.getOriginalFilename());
+			outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
 
-				this.saveAsset(asset);
+			FileCopyUtils.copy(file.getInputStream(), outputStream);
 
-				redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + name + "!");
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("message",
-						"You failed to upload " + name + " => " + e.getMessage());
-			}
-		} else {
-			redirectAttributes.addFlashAttribute("message",
-					"You failed to upload " + name + " because the file was empty");
+			Asset asset = new Asset(file.getOriginalFilename(), file.getOriginalFilename(), (double) file.getSize(),
+					Collections.EMPTY_LIST);
+
+			this.saveAsset(asset);
+		} catch (Exception e) {
+			logger.warn(e.getMessage(), e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed with error");
+		} finally {
+			IOUtils.closeQuietly(outputStream);
 		}
 
-		return "redirect:upload";
+		return ResponseEntity.ok("File accepted");
 	}
 
 	@Transactional

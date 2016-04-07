@@ -1,4 +1,4 @@
-# WABI-SABI - Open Access Publishing
+# [WABI-SABI](https://github.com/urchinly/wabi-sabi) - Open Access Publishing
 
 Wabi and sabi are two of the key Japanese aesthetic concepts. Their definitions are not exact, but one can get a sense of them from a short discussion of them. Over time, the two have been combined to form a new word, wabi-sabi, meaning an aesthetic sensibility which includes these two related ideas. 
 
