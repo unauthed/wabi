@@ -2,7 +2,7 @@
 
 Wabi and sabi are two of the key Japanese aesthetic concepts. Their definitions are not exact, but one can get a sense of them from a short discussion of them. Over time, the two have been combined to form a new word, wabi-sabi, meaning an aesthetic sensibility which includes these two related ideas. 
 
-Open source platform for open access publishing of great simplicity and beauty.
+Open source Digital Asset Management platform of great simplicity and beauty.
 
 ## Wabi [![Build Status](https://travis-ci.org/urchinly/wabi.svg?branch=master)](https://travis-ci.org/urchinly/wabi)
 
