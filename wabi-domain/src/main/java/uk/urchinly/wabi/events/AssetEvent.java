@@ -1,9 +1,11 @@
 /**
- * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+  * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
  */
 package uk.urchinly.wabi.events;
 
 import java.util.List;
+
+import org.springframework.util.MimeType;
 
 import uk.urchinly.wabi.entities.WabiAsset;
 
@@ -17,19 +19,22 @@ public class AssetEvent extends AbstractEvent implements WabiAsset {
 
 	private String fileName;
 
-	private Double price;
+	private Double fileSize;
 
-	private List<String> category;
+	private MimeType mimeType;
+
+	private List<String> tags;
 
 	public AssetEvent() {
 	}
 
-	public AssetEvent(String userId, String fileName, Double price, List<String> category) {
+	public AssetEvent(String userId, String fileName, Double fileSize, MimeType mimeType, List<String> tags) {
 		super();
 		this.userId = userId;
 		this.fileName = fileName;
-		this.price = price;
-		this.category = category;
+		this.fileSize = fileSize;
+		this.mimeType = mimeType;
+		this.tags = tags;
 	}
 
 	@Override
@@ -63,22 +68,32 @@ public class AssetEvent extends AbstractEvent implements WabiAsset {
 	}
 
 	@Override
-	public Double getPrice() {
-		return this.price;
+	public Double getFileSize() {
+		return this.fileSize;
 	}
 
 	@Override
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setFileSize(Double fileSize) {
+		this.fileSize = fileSize;
 	}
 
 	@Override
-	public List<String> getCategory() {
-		return this.category;
+	public MimeType getMimeType() {
+		return this.mimeType;
 	}
 
 	@Override
-	public void setCategory(List<String> category) {
-		this.category = category;
+	public void setMimeType(MimeType mimeType) {
+		this.mimeType = mimeType;
+	}
+
+	@Override
+	public List<String> getTags() {
+		return this.tags;
+	}
+
+	@Override
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 }

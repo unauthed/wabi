@@ -6,6 +6,8 @@ package uk.urchinly.wabi.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.util.MimeType;
+
 public interface WabiAsset extends Serializable {
 
 	String getId();
@@ -20,11 +22,15 @@ public interface WabiAsset extends Serializable {
 
 	void setFileName(String fileName);
 
-	Double getPrice();
+	Double getFileSize();
 
-	void setPrice(Double price);
+	void setFileSize(Double bytes);
 
-	List<String> getCategory();
+	MimeType getMimeType();
 
-	void setCategory(List<String> category);
+	void setMimeType(MimeType mimeType);
+
+	List<String> getTags();
+
+	void setTags(List<String> tags);
 }

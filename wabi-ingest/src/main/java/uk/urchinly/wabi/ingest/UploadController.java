@@ -18,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.MimeType;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +45,7 @@ public class UploadController {
 	private RabbitTemplate rabbitTemplate;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/upload")
-	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
 
 		if (file.isEmpty()) {
 			logger.debug("Upload file is empty.");
@@ -59,7 +61,7 @@ public class UploadController {
 			FileCopyUtils.copy(file.getInputStream(), outputStream);
 
 			Asset asset = new Asset(file.getOriginalFilename(), file.getOriginalFilename(), (double) file.getSize(),
-					Collections.EMPTY_LIST);
+					this.parseContentTypeToMimeType(file.getContentType()), Collections.emptyList());
 
 			this.saveAsset(asset);
 		} catch (Exception e) {
@@ -74,10 +76,20 @@ public class UploadController {
 
 	@Transactional
 	private void saveAsset(Asset asset) {
+
 		Asset savedAsset = this.assetMongoRepository.save(asset);
 
-		this.rabbitTemplate.convertAndSend(MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE, savedAsset.toString());
+		this.rabbitTemplate.convertAndSend(MessagingConstants.ASSET_INSERT_IMAGE_ROUTE, savedAsset.toString());
 
 		logger.debug("Ingested asset with id {}.", savedAsset.getId());
+	}
+
+	private MimeType parseContentTypeToMimeType(String contentType) {
+		try {
+			return MimeTypeUtils.parseMimeType(contentType);
+		} catch (Exception e) {
+			logger.debug("Failed to map content type '{}' to a valid mime type.", contentType, e);
+			return MimeTypeUtils.APPLICATION_OCTET_STREAM;
+		}
 	}
 }
