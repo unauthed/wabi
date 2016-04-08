@@ -38,8 +38,10 @@ spring:
       max-page-size: 100
 
 endpoints:
-  health:
-    sensitive: false
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET
+  sensitive: false 
   restart:
     enabled: false
   shutdown:

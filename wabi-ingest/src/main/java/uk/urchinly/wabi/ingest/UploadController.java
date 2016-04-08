@@ -42,8 +42,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import uk.urchinly.wabi.constants.MessagingConstants;
 
-@RestController
 @CrossOrigin
+@RestController
 public class UploadController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);

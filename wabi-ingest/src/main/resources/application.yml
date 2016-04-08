@@ -43,8 +43,10 @@ multipart:
   file-size-threshold: 1MB
 
 endpoints:
-  health:
-    sensitive: false
+  cors:
+    allowed-origins: "*"
+    allowed-methods: GET
+  sensitive: false  
   restart:
     enabled: false
   shutdown:
