@@ -1,5 +1,20 @@
 /**
- * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+ * Wabi-Sabi DAM solution
+ * Open source Digital Asset Management platform of great simplicity and beauty.
+ * Copyright (C) 2016 Urchinly <wabi-sabi@urchinly.uk>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package uk.urchinly.wabi.search;
 
@@ -15,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
@@ -29,7 +45,7 @@ import uk.urchinly.wabi.events.AuditEvent;
 
 @SpringBootApplication
 @RestController
-@RabbitListener(queues = MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE)
+@RabbitListener(queues = MessagingConstants.ASSET_INSERT_IMAGE_ROUTE)
 public class Application {
 
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -44,6 +60,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	@CrossOrigin
 	@RequestMapping("/")
 	public RedirectView home() {
 		return new RedirectView("/info");

@@ -1,5 +1,20 @@
 /**
- * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+ * Wabi-Sabi DAM solution
+ * Open source Digital Asset Management platform of great simplicity and beauty.
+ * Copyright (C) 2016 Urchinly <wabi-sabi@urchinly.uk>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package uk.urchinly.wabi.ingest;
 
@@ -33,8 +48,8 @@ public class UploadController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
-	@Value("${app.share.path}/vault")
-	private String wabiSharePath;
+	@Value("${app.share.path}")
+	private String appSharePath;
 
 	@Autowired
 	private AssetRepository assetMongoRepository;
@@ -43,7 +58,7 @@ public class UploadController {
 	private RabbitTemplate rabbitTemplate;
 
 	@RequestMapping(method = RequestMethod.POST, value = "/upload")
-	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file) {
 
 		if (file.isEmpty()) {
 			logger.debug("Upload file is empty.");
@@ -53,13 +68,13 @@ public class UploadController {
 		BufferedOutputStream outputStream = null;
 
 		try {
-			File outputFile = new File(wabiSharePath + "/" + file.getOriginalFilename());
+			File outputFile = new File(appSharePath + "/" + file.getOriginalFilename());
 			outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
 
 			FileCopyUtils.copy(file.getInputStream(), outputStream);
 
 			Asset asset = new Asset(file.getOriginalFilename(), file.getOriginalFilename(), (double) file.getSize(),
-					Collections.EMPTY_LIST);
+					file.getContentType(), Collections.emptyList());
 
 			this.saveAsset(asset);
 		} catch (Exception e) {
@@ -74,9 +89,10 @@ public class UploadController {
 
 	@Transactional
 	private void saveAsset(Asset asset) {
+
 		Asset savedAsset = this.assetMongoRepository.save(asset);
 
-		this.rabbitTemplate.convertAndSend(MessagingConstants.NEW_ARTICLE_UPLOAD_ROUTE, savedAsset.toString());
+		this.rabbitTemplate.convertAndSend(MessagingConstants.ASSET_INSERT_IMAGE_ROUTE, savedAsset.toString());
 
 		logger.debug("Ingested asset with id {}.", savedAsset.getId());
 	}

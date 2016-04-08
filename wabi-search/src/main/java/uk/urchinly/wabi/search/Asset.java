@@ -1,5 +1,20 @@
 /**
- * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+ * Wabi-Sabi DAM solution
+ * Open source Digital Asset Management platform of great simplicity and beauty.
+ * Copyright (C) 2016 Urchinly <wabi-sabi@urchinly.uk>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package uk.urchinly.wabi.search;
 
@@ -23,19 +38,22 @@ public class Asset extends AbstractEntity implements WabiAsset {
 
 	private String fileName;
 
-	private Double price;
+	private Double fileSize;
 
-	private List<String> category;
+	private String contentType;
+
+	private List<String> tags;
 
 	public Asset() {
 	}
 
-	public Asset(String userId, String fileName, Double price, List<String> category) {
+	public Asset(String userId, String fileName, Double fileSize, String contentType, List<String> tags) {
 		super();
 		this.userId = userId;
 		this.fileName = fileName;
-		this.price = price;
-		this.category = category;
+		this.fileSize = fileSize;
+		this.contentType = contentType;
+		this.tags = tags;
 	}
 
 	@Override
@@ -69,22 +87,32 @@ public class Asset extends AbstractEntity implements WabiAsset {
 	}
 
 	@Override
-	public Double getPrice() {
-		return this.price;
+	public Double getFileSize() {
+		return this.fileSize;
 	}
 
 	@Override
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setFileSize(Double fileSize) {
+		this.fileSize = fileSize;
 	}
 
 	@Override
-	public List<String> getCategory() {
-		return this.category;
+	public String getContentType() {
+		return this.contentType;
 	}
 
 	@Override
-	public void setCategory(List<String> category) {
-		this.category = category;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	@Override
+	public List<String> getTags() {
+		return this.tags;
+	}
+
+	@Override
+	public void setTags(List<String> tags) {
+		this.tags = tags;
 	}
 }
