@@ -1,5 +1,20 @@
 /**
- * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+ * Wabi-Sabi DAM solution
+ * Open source Digital Asset Management platform of great simplicity and beauty.
+ * Copyright (C) 2016 Urchinly <wabi-sabi@urchinly.uk>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package uk.urchinly.wabi.ingest;
 
@@ -18,8 +33,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.util.MimeType;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,8 +48,8 @@ public class UploadController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
-	@Value("${app.share.path}/vault")
-	private String wabiSharePath;
+	@Value("${app.share.path}")
+	private String appSharePath;
 
 	@Autowired
 	private AssetRepository assetMongoRepository;
@@ -55,13 +68,13 @@ public class UploadController {
 		BufferedOutputStream outputStream = null;
 
 		try {
-			File outputFile = new File(wabiSharePath + "/" + file.getOriginalFilename());
+			File outputFile = new File(appSharePath + "/" + file.getOriginalFilename());
 			outputStream = new BufferedOutputStream(new FileOutputStream(outputFile));
 
 			FileCopyUtils.copy(file.getInputStream(), outputStream);
 
 			Asset asset = new Asset(file.getOriginalFilename(), file.getOriginalFilename(), (double) file.getSize(),
-					this.parseContentTypeToMimeType(file.getContentType()), Collections.emptyList());
+					file.getContentType(), Collections.emptyList());
 
 			this.saveAsset(asset);
 		} catch (Exception e) {
@@ -82,14 +95,5 @@ public class UploadController {
 		this.rabbitTemplate.convertAndSend(MessagingConstants.ASSET_INSERT_IMAGE_ROUTE, savedAsset.toString());
 
 		logger.debug("Ingested asset with id {}.", savedAsset.getId());
-	}
-
-	private MimeType parseContentTypeToMimeType(String contentType) {
-		try {
-			return MimeTypeUtils.parseMimeType(contentType);
-		} catch (Exception e) {
-			logger.debug("Failed to map content type '{}' to a valid mime type.", contentType, e);
-			return MimeTypeUtils.APPLICATION_OCTET_STREAM;
-		}
 	}
 }

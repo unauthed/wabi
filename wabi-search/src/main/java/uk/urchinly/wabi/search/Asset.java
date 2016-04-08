@@ -1,5 +1,20 @@
 /**
- * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+ * Wabi-Sabi DAM solution
+ * Open source Digital Asset Management platform of great simplicity and beauty.
+ * Copyright (C) 2016 Urchinly <wabi-sabi@urchinly.uk>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package uk.urchinly.wabi.search;
 
@@ -7,7 +22,6 @@ import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.util.MimeType;
 
 import uk.urchinly.wabi.entities.AbstractEntity;
 import uk.urchinly.wabi.entities.WabiAsset;
@@ -26,19 +40,19 @@ public class Asset extends AbstractEntity implements WabiAsset {
 
 	private Double fileSize;
 
-	private MimeType mimeType;
+	private String contentType;
 
 	private List<String> tags;
 
 	public Asset() {
 	}
 
-	public Asset(String userId, String fileName, Double fileSize, MimeType mimeType, List<String> tags) {
+	public Asset(String userId, String fileName, Double fileSize, String contentType, List<String> tags) {
 		super();
 		this.userId = userId;
 		this.fileName = fileName;
 		this.fileSize = fileSize;
-		this.mimeType = mimeType;
+		this.contentType = contentType;
 		this.tags = tags;
 	}
 
@@ -83,13 +97,13 @@ public class Asset extends AbstractEntity implements WabiAsset {
 	}
 
 	@Override
-	public MimeType getMimeType() {
-		return this.mimeType;
+	public String getContentType() {
+		return this.contentType;
 	}
 
 	@Override
-	public void setMimeType(MimeType mimeType) {
-		this.mimeType = mimeType;
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	@Override

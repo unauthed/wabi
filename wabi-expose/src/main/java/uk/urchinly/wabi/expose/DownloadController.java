@@ -1,5 +1,20 @@
 /**
- * Copyright (C) ${year} Urchinly <wabi@urchinly.uk>
+ * Wabi-Sabi DAM solution
+ * Open source Digital Asset Management platform of great simplicity and beauty.
+ * Copyright (C) 2016 Urchinly <wabi-sabi@urchinly.uk>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package uk.urchinly.wabi.expose;
 
@@ -39,8 +54,8 @@ public class DownloadController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DownloadController.class);
 
-	@Value("${app.share.path}/vault")
-	private String wabiSharePath;
+	@Value("${app.share.path}")
+	private String appSharePath;
 
 	@Autowired
 	private AssetRepository assetMongoRepository;
@@ -88,7 +103,7 @@ public class DownloadController {
 	@RequestMapping(method = RequestMethod.GET, value = "/browse")
 	public List<String> browseFiles(Model model) {
 
-		File rootFolder = new File(wabiSharePath);
+		File rootFolder = new File(appSharePath);
 
 		return Arrays.stream(rootFolder.listFiles()).map(f -> f.getName()).collect(Collectors.toList());
 	}
@@ -103,13 +118,13 @@ public class DownloadController {
 			return;
 		}
 
-		File file = new File(asset.getFileName());
+		File file = new File(appSharePath, asset.getFileName());
 
 		if (file.canRead()) {
 			this.rabbitTemplate.convertAndSend(MessagingConstants.USAGE_ROUTE,
 					new UsageEvent("download asset", asset.toString()));
 
-			response.setContentType(asset.getMimeType().toString());
+			response.setContentType(asset.getContentType());
 			response.setHeader("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
 			response.setContentLength((int) file.length());
 
