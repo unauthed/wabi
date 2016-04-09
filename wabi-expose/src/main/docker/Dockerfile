@@ -21,9 +21,9 @@ FROM java:alpine
 MAINTAINER docker@urchinly.uk
 LABEL uk.urchinly.tech=SpringBoot
 LABEL uk.urchinly.tier=wabi
-EXPOSE 8082
 RUN ["mkdir", "-p", "/data/vault"]
 VOLUME ["/data/vault", "/tmp"]
+EXPOSE 8082
 COPY wabi-*.jar app.jar
 RUN /bin/sh -c 'touch /app.jar'
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
