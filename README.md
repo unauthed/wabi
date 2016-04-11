@@ -23,15 +23,19 @@ To start the application we use Docker Compose. Test the application by uploadin
 
 - Maven 3.2
 - Java 8
-- Docker 10
+- Docker 1.10
 
 ```
 ./elasticsearch/build.sh
 ./rabbitmq/build.sh
+./wabi-portal/build.sh
+
 mvn clean install -P prod
+
 ./wabi-ingest/mvn docker:build
 ./wabi-expose/mvn docker:build
 ./wabi-search/mvn docker:build
+
 docker-compose up
 ```
 
