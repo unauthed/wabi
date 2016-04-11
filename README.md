@@ -16,7 +16,7 @@ Sabi means things whose beauty stems from age. It refers to the patina of age, a
 
 Sabi modules form the custom components of our digital asset management solution.
 
-### Build and run locally or in the [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+### Build and run locally or [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
 First we build the Docker containers for our third-party services RabbitMQ, ElasticSearch and MongoDB. Next we build the platform micro-services as Docker containers.
 To start the application we use Docker Compose. Test the application by uploading a file to _http://localhost:8081/upload_ and verify with downloading the file from _http:localhost:8082/assets_.
