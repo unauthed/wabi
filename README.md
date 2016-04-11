@@ -1,4 +1,4 @@
-# [WABI-SABI](https://github.com/urchinly/wabi-sabi) - Digital Asset Management
+# [WABI-SABI](https://github.com/urchinly/wabi-sabi) - Digital Asset Management [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
 Wabi and sabi are two of the key Japanese aesthetic concepts. Their definitions are not exact, but one can get a sense of them from a short discussion of them. Over time, the two have been combined to form a new word, wabi-sabi, meaning an aesthetic sensibility which includes these two related ideas.
 
@@ -16,7 +16,7 @@ Sabi means things whose beauty stems from age. It refers to the patina of age, a
 
 Sabi modules form the custom components of our digital asset management solution.
 
-### Build and run locally or [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+### Build and run locally
 
 First we build the Docker containers for our third-party services RabbitMQ, ElasticSearch and MongoDB. Next we build the platform micro-services as Docker containers.
 To start the application we use Docker Compose. Test the application by uploading a file to _http://localhost:8081/upload_ and verify with downloading the file from _http:localhost:8082/assets_.
