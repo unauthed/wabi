@@ -83,7 +83,6 @@ rabbitmq:
 search:
   image: 'urchinly/wabi-search:latest'
   environment:
-    - 'SPRING_DATA_SOLR_HOST=http://elasticsearch-1'
     - 'SPRING_PROFILES_ACTIVE=prod'
     - 'SPRING_RABBITMQ_ADDRESSES=rabbitmq-1'
   links:
