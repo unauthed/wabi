@@ -1,6 +1,6 @@
 # [WABI-SABI](https://github.com/urchinly/wabi-sabi) - Digital Asset Management
 
-Wabi and sabi are two of the key Japanese aesthetic concepts. Their definitions are not exact, but one can get a sense of them from a short discussion of them. Over time, the two have been combined to form a new word, wabi-sabi, meaning an aesthetic sensibility which includes these two related ideas. 
+Wabi and sabi are two of the key Japanese aesthetic concepts. Their definitions are not exact, but one can get a sense of them from a short discussion of them. Over time, the two have been combined to form a new word, wabi-sabi, meaning an aesthetic sensibility which includes these two related ideas.
 
 Open source Digital Asset Management platform of great simplicity and beauty.
 
@@ -16,7 +16,7 @@ Sabi means things whose beauty stems from age. It refers to the patina of age, a
 
 Sabi modules form the custom components of our digital asset management solution.
 
-### Build and Run
+### Build and run locally
 
 First we build the Docker containers for our third-party services RabbitMQ, ElasticSearch and MongoDB. Next we build the platform micro-services as Docker containers.
 To start the application we use Docker Compose. Test the application by uploading a file to _http://localhost:8081/upload_ and verify with downloading the file from _http:localhost:8082/assets_.
@@ -34,6 +34,10 @@ mvn clean install -P prod
 ./wabi-search/mvn docker:build
 docker-compose up
 ```
+
+### Run in the cloud
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
 ### Maven Tips
 
@@ -55,13 +59,13 @@ Create Docker image
 
 Check and format licence headers across the project
 
-* `mvn license:check` 
+* `mvn license:check`
 
-* `mvn license:format` 
+* `mvn license:format`
 
 Check for latest versions
 
-* `mvn versions:display-dependency-updates` 
+* `mvn versions:display-dependency-updates`
 
 * `mvn versions:display-plugin-updates`
 
@@ -93,4 +97,3 @@ Remove all volumes
 Remove all networks
 
 * `docker network rm $(docker network ls -q)`
-
