@@ -39,7 +39,7 @@ mvn clean install -P prod
 docker-compose up
 ```
 
-### Run Docker images in the Docker Cloud
+### Run wabi images in the Docker Cloud
 
 [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
