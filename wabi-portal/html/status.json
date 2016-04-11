@@ -1,0 +1,7 @@
+{
+  "wabiServices": [{"name": "Wabi Ingest Service", "port": "9081"}, {"name": "Wabi Expose Service", "port": "9082"}, {"name": "Wabi  Search Service", "port": "9088"}],
+  "sabiServices": [{"name": "Sabi Events Service", "port": "7081"}, {"name": "Sabi Mailer Service", "port": "7082"}],
+  "mongoCluster": ["27017"],
+  "rabbitmqCluster": ["15672"],
+  "elasticsearchCluster": ["9300"]
+}

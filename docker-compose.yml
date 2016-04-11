@@ -20,6 +20,20 @@
 version: "2"
 
 services:
+  portal:
+    image: urchinly/wabi-portal
+    ports:
+     - "9080:80"
+     - "9443:443"
+    volumes:
+     - /tmp
+    depends_on:
+     - ingest
+     - expose
+     - search
+    networks:
+     - sabi-tier
+
   ingest:
     image: urchinly/wabi-ingest
     environment:
@@ -62,7 +76,6 @@ services:
     environment:
      - SPRING_PROFILES_ACTIVE=prod
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
-     - SPRING_DATA_SOLR_HOST=http://wabi_elasticsearch_1
     ports:
      - "9088:8088"
     volumes:

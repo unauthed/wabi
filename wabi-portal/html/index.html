@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="Open source Digital Asset Management platform of great simplicity and beauty.">
+      <meta name="author" content="Urchinly">
+      <title>Wabi-Sabi DAM</title>
+      <link href="assets/bootstrap.min.css" rel="stylesheet">
+      <link href="assets/dropzone.css" rel="stylesheet">
+      <link href="assets/style.css" rel="stylesheet">
+      <link rel="icon" type="image/png" href="favicon-194x194.png" sizes="194x194">
+      <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+      <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+      <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+   </head>
+   <body>
+      <div class="container">
+
+         <nav class="navbar navbar-default">
+            <div class="container-fluid">
+               <div class="navbar-header">
+                  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="/">Wabi-Sabi DAM</a>
+               </div>
+               <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                     <li class="active"><a href="/">Home</a></li>
+                     <li><a href="status.html">Status</a></li>
+                     <li><a href="stream.html">Stream</a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="about.html">About</a></li>
+                  </ul>
+               </div>
+            </div>
+         </nav>
+
+         <div class="jumbotron">
+            <p class="text-muted">Open source Digital Asset Management platform of great simplicity and beauty.</p>
+            <div class="input-group input-group-lg">
+               <input type="text" class="form-control input-lg" style="outline:none; box-shadow:none;" id="search-txt" placeholder="Search for files and file content...">
+               <span class="input-group-btn">
+               <button class="btn btn-default btn-lg" id="search-btn">Search</button>
+               <button class="btn btn-default btn-lg" id="clear-search-btn">Clear</button>
+               </span>
+            </div>
+         </div>
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               <a href="#" class="pull-right" id="refresh-expose-lnk">Refresh</a>
+               <h3 class="panel-title">Wabi Expose service for file download</h3>
+            </div>
+            <div class="panel-body">
+               <ol class="breadcrumb">
+                  <li><a href="/">Assets</a></li>
+                  <li class="active">2016</li>
+               </ol>
+               <h5 class="expose-content">Processing... </h5>
+               <nav>
+                 <ul class="pager">
+                   <li class="disabled"><a href="#" id="prev-expose-lnk">Previous</a></li>
+                   <li class="disabled"><a href="#" id="next-expose-lnk">Next</a></li>
+                 </ul>
+               </nav>
+            </div>
+         </div>
+         <div class="panel panel-default">
+            <div class="panel-body">
+               <div id="dropzone">
+                  <form action="http://localhost:9081/upload" class="dropzone needsclick dz-clickable" id="upload-form">
+                     <div class="dz-message needsclick">Drop files here or click to upload.<br><span class="note needsclick">(The max file size for this server is <strong>100 MB</strong>.)</span></div>
+                  </form>
+               </div>
+            </div>
+            <div class="panel-footer">
+               <a href="#" class="pull-right" id="clear-ingest-lnk">Clear</a>
+               <h3 class="panel-title">Wabi Ingest service for file upload</h3>
+            </div>
+         </div>
+
+         <div class="footer">
+           <hr>
+           <div class="row">
+             <div class="col-xs-4 text-muted">
+               <strong>Copyright Urchinly &COPY 2016</strong>
+             </div>
+             <div class="col-xs-8 text-right">
+               [ <a href="license.html">License</a> | <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a> | <a href="https://github.com/urchinly/wabi-sabi" target="_blank">GitHub</a> ]
+             </div>
+           </div>
+         </div>
+      </div> <!-- /container -->
+      <script src="assets/jquery.min.js"></script>
+      <script src="assets/bootstrap.min.js"></script>
+      <script src="assets/dropzone.js"></script>
+      <script src="assets/home.js"></script>
+   </body>
+</html>
