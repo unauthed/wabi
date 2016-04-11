@@ -1,4 +1,4 @@
-# [WABI-SABI](https://github.com/urchinly/wabi-sabi) - Digital Asset Management [![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
+# [WABI-SABI](https://github.com/urchinly/wabi-sabi) - Digital Asset Management
 
 Wabi and sabi are two of the key Japanese aesthetic concepts. Their definitions are not exact, but one can get a sense of them from a short discussion of them. Over time, the two have been combined to form a new word, wabi-sabi, meaning an aesthetic sensibility which includes these two related ideas.
 
@@ -34,6 +34,10 @@ mvn clean install -P prod
 ./wabi-search/mvn docker:build
 docker-compose up
 ```
+
+### Run Docker images in the Docker Cloud
+
+[![Deploy to Docker Cloud](https://files.cloud.docker.com/images/deploy-to-dockercloud.svg)](https://cloud.docker.com/stack/deploy/)
 
 ### Maven Tips
 
