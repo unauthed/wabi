@@ -37,6 +37,7 @@ mvn clean install -P prod
 ./wabi-search/mvn docker:build
 
 docker-compose up
+http://localhost:9080/
 ```
 
 ### Run wabi images in the Docker Cloud
