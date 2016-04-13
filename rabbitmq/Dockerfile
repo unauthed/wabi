@@ -21,5 +21,9 @@ FROM rabbitmq:3-management
 MAINTAINER docker@urchinly.uk
 LABEL uk.urchinly.tech=data
 LABEL uk.urchinly.tier=wabi
-EXPOSE 5672
+EXPOSE 15671
 EXPOSE 15672
+EXPOSE 25672
+EXPOSE 4369
+EXPOSE 5671
+EXPOSE 5672
