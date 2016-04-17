@@ -24,9 +24,14 @@
 		<module>wabi-search</module>
 	</modules>
 
+	<issueManagement>
+		<url>https://github.com/urchinly/wabi/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+	
 	<scm>
-		<connection>scm:git:ssh://git@github.com:urchinly/wabi.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com:urchinly/wabi.git</developerConnection>
+		<connection>scm:git:ssh://git@github.com/urchinly/wabi.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/urchinly/wabi.git</developerConnection>
 		<url>https://github.com/urchinly/wabi</url>
 	</scm>
 

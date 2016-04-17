@@ -33,12 +33,8 @@
 
 	<licenses>
 		<license>
-			<name>Urchinly Copyright, Version 1.0</name>
-			<url>
-				http://urchinly.uk/licenses/URCHINLY-SOFTWARE-LICENSE-1.0.txt
-			</url>
-			<distribution>repo</distribution>
-			<comments>Urchinly Software License</comments>
+			<name>GNU AFFERO GENERAL PUBLIC LICENSE (AGPL)</name>
+			<url>https://www.gnu.org/licenses/agpl.txt</url>
 		</license>
 	</licenses>
 
@@ -47,18 +43,12 @@
 			<id>urchinly</id>
 			<name>Andre</name>
 			<email>andre@urchinly.uk</email>
-			<url>http://people.urchinly.uk/andre</url>
+			<url>http://andre.urchinly.uk</url>
 			<organization>Urchinly</organization>
 			<organizationUrl>https://urchinly.uk</organizationUrl>
 			<timezone>0</timezone>
 		</developer>
 	</developers>
-
-	<scm>
-		<connection>scm:git:ssh://git@git.urchinly.uk/urchinly/mvn-wabi-pom.git</connection>
-		<developerConnection>scm:git:ssh://git@git.urchinly.uk/urchinly/mvn-wabi-pom.git</developerConnection>
-		<url>https://git.urchinly.uk/urchinly/mvn-wabi-pom</url>
-	</scm>
 
 	<issueManagement>
 		<system>Jira</system>
@@ -75,25 +65,6 @@
 			</notifier>
 		</notifiers>
 	</ciManagement>
-
-    <repositories>
-	    <repository>
-		    <id>bintray-urchinly-maven</id>
-		    <name>bintray</name>
-		    <url>http://dl.bintray.com/urchinly/maven</url>
-		    <snapshots>
-			    <enabled>false</enabled>
-		    </snapshots>
-	    </repository>
-    </repositories>
-
-	<distributionManagement>
-		<repository>
-		<id>bintray-urchinly-maven</id>
-		<name>urchinly-maven</name>
-		<url>https://api.bintray.com/maven/urchinly/maven/[PACKAGE_NAME]/;publish=1</url>
-		</repository>
-	</distributionManagement>
                 
 	<build>
 		<pluginManagement>
