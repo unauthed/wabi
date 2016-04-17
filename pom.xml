@@ -55,7 +55,7 @@
 		<repository>
 		<id>bintray-urchinly-maven</id>
 		<name>urchinly-maven</name>
-		<url>https://api.bintray.com/maven/urchinly/maven/[PACKAGE_NAME]/;publish=1</url>
+		<url>https://api.bintray.com/maven/urchinly/maven/wabi-project/;publish=1</url>
 		</repository>
 	</distributionManagement>
 
