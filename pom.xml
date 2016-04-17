@@ -28,7 +28,12 @@
 		<url>https://github.com/urchinly/wabi/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
-	
+
+	<ciManagement>
+		<system>Travis</system>
+		<url>https://travis-ci.org/urchinly/wabi/branches</url>
+	</ciManagement>
+
 	<scm>
 		<connection>scm:git:ssh://git@github.com/urchinly/wabi.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/urchinly/wabi.git</developerConnection>

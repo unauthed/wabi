@@ -51,21 +51,40 @@
 	</developers>
 
 	<issueManagement>
-		<system>Jira</system>
-		<url>http://jira.urchinly.uk</url>
+		<url>https://github.com/urchinly/wabi/issues</url>
+		<system>GitHub Issues</system>
 	</issueManagement>
 
 	<ciManagement>
-		<system>Jenkins</system>
-		<url>http://jenkins.urchinly.uk</url>
-		<notifiers>
-			<notifier>
-				<type>mail</type>
-				<address>wabi@urchinly.uk</address>
-			</notifier>
-		</notifiers>
+		<system>Travis</system>
+		<url>https://travis-ci.org/urchinly/wabi/branches</url>
 	</ciManagement>
-                
+
+	<scm>
+		<connection>scm:git:ssh://git@github.com/urchinly/mvn-wabi-pom.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/urchinly/mvn-wabi-pom.git</developerConnection>
+		<url>https://github.com/urchinly/mvn-wabi-pom</url>
+	</scm>
+
+    <repositories>
+	    <repository>
+		    <id>bintray-urchinly-maven</id>
+		    <name>bintray</name>
+		    <url>http://dl.bintray.com/urchinly/maven</url>
+		    <snapshots>
+			    <enabled>false</enabled>
+		    </snapshots>
+	    </repository>
+    </repositories>
+		
+	<distributionManagement>
+		<repository>
+		<id>bintray-urchinly-maven</id>
+		<name>urchinly-maven</name>
+		<url>https://api.bintray.com/maven/urchinly/maven/mvn-wabi-pom/;publish=1</url>
+		</repository>
+	</distributionManagement>
+	
 	<build>
 		<pluginManagement>
 			<plugins>
