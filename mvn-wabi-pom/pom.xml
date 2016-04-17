@@ -78,17 +78,12 @@
 
 	<distributionManagement>
 		<repository>
-			<id>artifacts.urchinly.uk</id>
-			<name>releases</name>
-			<url>https://artifacts.urchinly.uk/releases</url>
+		<id>bintray-urchinly-maven</id>
+		<name>urchinly-maven</name>
+		<url>https://api.bintray.com/maven/urchinly/maven/[PACKAGE_NAME]/;publish=1</url>
 		</repository>
-		<snapshotRepository>
-			<id>artifacts.urchinly.uk</id>
-			<name>snapshots</name>
-			<url>https://artifacts.urchinly.uk/snapshots</url>
-		</snapshotRepository>
 	</distributionManagement>
-
+                
 	<build>
 		<pluginManagement>
 			<plugins>
