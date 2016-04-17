@@ -30,6 +30,25 @@
 		<url>https://github.com/urchinly/wabi</url>
 	</scm>
 
+    <repositories>
+	    <repository>
+		    <id>bintray-urchinly-maven</id>
+		    <name>bintray</name>
+		    <url>http://dl.bintray.com/urchinly/maven</url>
+		    <snapshots>
+			    <enabled>false</enabled>
+		    </snapshots>
+	    </repository>
+    </repositories>
+		
+	<distributionManagement>
+		<repository>
+		<id>bintray-urchinly-maven</id>
+		<name>urchinly-maven</name>
+		<url>https://api.bintray.com/maven/urchinly/maven/[PACKAGE_NAME]/;publish=1</url>
+		</repository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>

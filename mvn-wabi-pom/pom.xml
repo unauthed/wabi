@@ -76,6 +76,17 @@
 		</notifiers>
 	</ciManagement>
 
+    <repositories>
+	    <repository>
+		    <id>bintray-urchinly-maven</id>
+		    <name>bintray</name>
+		    <url>http://dl.bintray.com/urchinly/maven</url>
+		    <snapshots>
+			    <enabled>false</enabled>
+		    </snapshots>
+	    </repository>
+    </repositories>
+
 	<distributionManagement>
 		<repository>
 		<id>bintray-urchinly-maven</id>
