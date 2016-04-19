@@ -76,6 +76,7 @@ services:
     environment:
      - SPRING_PROFILES_ACTIVE=prod
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
+     - SPRING_ELASTICSEARCH_ADDRESSES=wabi_elasticsearch_1:9300,wabi_elasticsearch_2:9300,wabi_elasticsearch_3:9300
     ports:
      - "9088:8088"
     volumes:
@@ -102,11 +103,9 @@ services:
      - rabbitmq-volume:/var/lib/rabbitmq/mnesia/wabi
     networks:
      - wabi-tier
-    labels:
-     - "uk.urchinly.tech=data"
 
   elasticsearch:
-    image: elasticsearch:1.5.2
+    image: urchinly/wabi-elasticsearch
     ports:
      - "9200:9200"
      - "9300:9300"
@@ -114,8 +113,6 @@ services:
      - elasticsearch-volume:/usr/share/elasticsearch/data
     networks:
      - wabi-tier
-    labels:
-     - "uk.urchinly.tech=data"
 
   mongo:
     image: mongo

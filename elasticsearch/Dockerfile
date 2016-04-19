@@ -17,10 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-FROM elasticsearch
+# Note the version is must match spring data!
+
+FROM elasticsearch:1.5.2
 MAINTAINER docker@urchinly.uk
 LABEL uk.urchinly.tech=data
+LABEL uk.urchinly.tier=wabi
 EXPOSE 9200
 EXPOSE 9300
-ADD config/elasticsearch.yml /elasticsearch/config/elasticsearch.yml
+COPY config /usr/share/elasticsearch/config
+VOLUME ["/usr/share/elasticsearch/data"]
 

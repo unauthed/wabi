@@ -17,27 +17,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-path:
-  data: /data/data
-  logs: /data/log
-  plugins: /data/plugins
-  work: /data/work
+network:
+  host: 0.0.0.0
 
-# Cluster information
-cluster.name: <application_name>
-node.name: <application_name>
+cluster:
+  name: wabi
 
-# Security settings
-script.disable_dynamic: true
+node: 
+  name: ${HOSTNAME}
 
-# Index settings
-action.auto_create_index: false
+script: 
+  inline: off
+  indexed: off
+  file: off
+  
+action:
+  auto_create_index: false
 
-# Turn off swap to get a big speed increase.  This will prevent the ES server
-# from swapping memory on the node. https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration.html#setup-configuration-memory
-bootstrap.mlockall: true
+# Turn off swap to get a big speed increase.  This will prevent the ES server from swapping memory on the node.
+# https://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration.html#setup-configuration-memory
+bootstrap:
+  mlockall: true
 
-# Disable deleting all indices from the api
-action.disable_delete_all_indices: true
+action:
+  disable_delete_all_indices: true
 
-indices.cluster.send_refresh_mapping: false
+indices:
+  cluster:
+    send_refresh_mapping: false
+
