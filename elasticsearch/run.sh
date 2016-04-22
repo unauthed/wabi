@@ -18,7 +18,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-
-docker run -p 9200:9200 -p 9300:9300 --name elasticsearch -h elasticsearch urchinly/wabi-elasticsearch
-
+docker run -it -p 9200:9200 -p 9300:9300 --memory 500m --rm --net=wabi_wabi-tier --name wabi-elasticsearch urchinly/wabi-elasticsearch
 

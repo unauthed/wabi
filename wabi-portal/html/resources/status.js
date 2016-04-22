@@ -13,7 +13,7 @@ $(document).ready(function() {
 
   function updateServiceStatus (service, serviceData) {
     $.ajax({
-        url: "//" + location.hostname + ":" + service.port + "/info"
+        url: "//" + service.hostname + ":" + service.port + "/info"
     })
     .done(function(data) {
       data.status = "UP";

@@ -19,12 +19,9 @@
 
 # Note the elasticsearch version must match the spring data version!
 
-FROM elasticsearch:1.5.2
+FROM haproxy:1.6.4-alpine
 MAINTAINER docker@urchinly.uk
-LABEL uk.urchinly.tech=data
+LABEL uk.urchinly.tech=web
 LABEL uk.urchinly.tier=wabi
-EXPOSE 9200
-EXPOSE 9300
-COPY config /usr/share/elasticsearch/config
-VOLUME ["/usr/share/elasticsearch/data"]
-
+EXPOSE 80 443
+COPY config /usr/local/etc/haproxy

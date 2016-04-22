@@ -19,13 +19,14 @@ Sabi modules form the custom components of our digital asset management solution
 ### Build and run locally
 
 First we build the Docker containers for our third-party services RabbitMQ, ElasticSearch and MongoDB. Next we build the platform micro-services as Docker containers.
-To start the application we use Docker Compose. Test the application by uploading a file to _http://localhost:8081/upload_ and verify with downloading the file from _http:localhost:8082/assets_.
+To start the application we use Docker Compose. Test the application by uploading a file to _http://localhost:8888/upload_ and verify with downloading the file from _http:localhost:8888/assets_.
 
 - Maven 3.2
 - Java 8
 - Docker 1.10
 
 ```
+./haproxy/build.sh
 ./elasticsearch/build.sh
 ./rabbitmq/build.sh
 ./wabi-portal/build.sh
@@ -37,7 +38,21 @@ mvn clean install -P prod
 ./wabi-search/mvn docker:build
 
 docker-compose up
-http://localhost:9080/
+http://localhost:8888/
+
+docker-compose scale portal=2
+docker-compose restart haproxy
+http://localhost:8888/stats
+
+```
+
+## Apache HTTP server benchmarking tool
+
+We would love to hear from you, create your own [benchmark](http://httpd.apache.org/docs/2.2/programs/ab.html) and share the results.
+
+```
+sudo apt-get install -y apache2-utils
+./ab-benchmark.sh
 ```
 
 ### Run wabi images in the Docker Cloud

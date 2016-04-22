@@ -20,13 +20,23 @@
 version: "2"
 
 services:
+  haproxy:
+    image: urchinly/wabi-haproxy
+    ports:
+     - "8888:80"
+     - "443:443"
+    depends_on:
+     - portal
+     - ingest
+     - expose
+     - search
+    networks:
+     - sabi-tier
+     
   portal:
     image: urchinly/wabi-portal
     ports:
-     - "9080:80"
-     - "9443:443"
-    volumes:
-     - /tmp
+     - "80"
     depends_on:
      - ingest
      - expose
@@ -42,7 +52,7 @@ services:
      - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
     ports:
-     - "9081:8081"
+     - "8081"
     volumes:
      - /tmp
      - shared-volume:/data/vault
@@ -61,7 +71,7 @@ services:
      - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
     ports:
-      - "9082:8082"
+      - "8082"
     volumes_from:
      - ingest:rw
     depends_on:
@@ -76,9 +86,9 @@ services:
     environment:
      - SPRING_PROFILES_ACTIVE=prod
      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
-     - SPRING_ELASTICSEARCH_ADDRESSES=wabi_elasticsearch_1:9300,wabi_elasticsearch_2:9300,wabi_elasticsearch_3:9300
+     - SPRING_ELASTICSEARCH_ADDRESSES=wabi_elasticsearch_1:9300
     ports:
-     - "9088:8088"
+     - "8088"
     volumes:
      - /tmp
     depends_on:
@@ -97,8 +107,12 @@ services:
      - RABBITMQ_DEFAULT_PASS=guest
      - RABBITMQ_DEFAULT_VHOST=/
     ports:
-     - "5672:5672"
+     - "15671:15671"
      - "15672:15672"
+     - "25672:25672"
+     - "4369:4369"
+     - "5671:5671"
+     - "5672:5672"
     volumes:
      - rabbitmq-volume:/var/lib/rabbitmq/mnesia/wabi
     networks:

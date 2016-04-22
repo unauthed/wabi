@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #
 # Wabi-Sabi DAM solution
 # Open source Digital Asset Management platform of great simplicity and beauty.
@@ -17,14 +18,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Note the elasticsearch version must match the spring data version!
-
-FROM elasticsearch:1.5.2
-MAINTAINER docker@urchinly.uk
-LABEL uk.urchinly.tech=data
-LABEL uk.urchinly.tier=wabi
-EXPOSE 9200
-EXPOSE 9300
-COPY config /usr/share/elasticsearch/config
-VOLUME ["/usr/share/elasticsearch/data"]
+docker run -it -p 8888:80 -p 443:443 --memory 500m --rm --net=wabi_sabi-tier --name wabi-haproxy urchinly/wabi-haproxy
 
