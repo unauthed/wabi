@@ -79,6 +79,9 @@
 						<exclude>**/*.md</exclude>
 						<exclude>**/*.xml</exclude>
 						<exclude>**/*.jmx</exclude>
+						<exclude>**/*.cfg</exclude>
+						<exclude>**/.editorconfig</exclude>
+						<exclude>**/.dockerignore</exclude>
 						<exclude>**/.springBeans</exclude>
 						<exclude>**/.gitignore</exclude>
 						<exclude>**/gitkeep</exclude>
