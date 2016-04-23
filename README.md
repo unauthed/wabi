@@ -38,8 +38,8 @@ mvn clean install -P prod
 
 docker-compose up
 
-curl -F file=@yourFileName http://localhost:8888/upload
-curl http://localhost:8888/assets
+curl -v -F file=@yourFileName http://localhost:8888/upload
+curl -v http://localhost:8888/assets
 ```
 
 ### Maven Tips
@@ -58,7 +58,7 @@ Run a module
 
 Create Docker image
 
-* `mvn clean install -P prod && mvn docker:build`
+* `mvn clean install docker:build -P prod`
 
 Check and format licence headers across the project
 
