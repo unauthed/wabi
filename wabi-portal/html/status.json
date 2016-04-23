@@ -1,7 +1,0 @@
-{
-  "wabiServices": [{"name": "Wabi Ingest Service", "hostname":"wabi_ingest_1", "port": "8081"}, {"name": "Wabi Expose Service", "hostname":"wabi_expose_1", "port": "8082"}, {"name": "Wabi  Search Service", "hostname":"wabi_search_1", "port": "8088"}],
-  "sabiServices": [{"name": "Sabi Events Service", "hostname":"sabi_events_1", "port": "7081"}, {"name": "Sabi Mailer Service", "hostname":"sabi_mailer_1", "port": "7082"}],
-  "mongoCluster": ["27017"],
-  "rabbitmqCluster": ["15672"],
-  "elasticsearchCluster": ["9300"]
-}

@@ -20,29 +20,6 @@
 version: "2"
 
 services:
-  haproxy:
-    image: urchinly/wabi-haproxy
-    ports:
-     - "8888:80"
-     - "443:443"
-    depends_on:
-     - portal
-     - ingest
-     - expose
-     - search
-    networks:
-     - sabi-tier
-     
-  portal:
-    image: urchinly/wabi-portal
-    ports:
-     - "80"
-    depends_on:
-     - ingest
-     - expose
-     - search
-    networks:
-     - sabi-tier
 
   ingest:
     image: urchinly/wabi-ingest
@@ -60,7 +37,6 @@ services:
      - rabbitmq
      - mongo
     networks:
-     - sabi-tier
      - wabi-tier
 
   expose:
@@ -78,7 +54,6 @@ services:
      - rabbitmq
      - mongo
     networks:
-     - sabi-tier
      - wabi-tier
 
   search:
@@ -95,7 +70,6 @@ services:
      - rabbitmq
      - elasticsearch
     networks:
-     - sabi-tier
      - wabi-tier
 
   rabbitmq:
@@ -150,7 +124,5 @@ volumes:
     driver: local
 
 networks:
-  sabi-tier:
-    driver: bridge
   wabi-tier:
     driver: bridge
