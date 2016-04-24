@@ -24,94 +24,94 @@ services:
   ingest:
     image: urchinly/wabi-ingest
     environment:
-     - WABI_SHARE=/data/vault
-     - SPRING_PROFILES_ACTIVE=prod
-     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
-     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
+      - WABI_SHARE=/data/vault
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
+      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
     ports:
-     - "8081"
+      - "8081"
     volumes:
-     - /tmp
-     - shared-volume:/data/vault
+      - /tmp
+      - shared-volume:/data/vault
     depends_on:
-     - rabbitmq
-     - mongo
+      - rabbitmq
+      - mongo
     networks:
-     - wabi-tier
+      - wabi-tier
 
   expose:
     image: urchinly/wabi-expose
     environment:
-     - WABI_SHARE=/data/vault
-     - SPRING_PROFILES_ACTIVE=prod
-     - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
-     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
+      - WABI_SHARE=/data/vault
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATA_MONGODB_URI=mongodb://wabi_mongo_1/wabi
+      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
     ports:
       - "8082"
     volumes_from:
-     - ingest:rw
+      - ingest:rw
     depends_on:
-     - rabbitmq
-     - mongo
+      - rabbitmq
+      - mongo
     networks:
-     - wabi-tier
+      - wabi-tier
 
   search:
     image: urchinly/wabi-search
     environment:
-     - SPRING_PROFILES_ACTIVE=prod
-     - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
-     - SPRING_ELASTICSEARCH_ADDRESSES=wabi_elasticsearch_1:9300
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_RABBITMQ_ADDRESSES=wabi_rabbitmq_1,wabi_rabbitmq_2,wabi_rabbitmq_3
+      - SPRING_ELASTICSEARCH_ADDRESSES=wabi_elasticsearch_1:9300
     ports:
-     - "8088"
+      - "8088"
     volumes:
-     - /tmp
+      - /tmp
     depends_on:
-     - rabbitmq
-     - elasticsearch
+      - rabbitmq
+      - elasticsearch
     networks:
-     - wabi-tier
+      - wabi-tier
 
   rabbitmq:
     image: urchinly/wabi-rabbitmq
     environment:
 # broken - RABBITMQ_NODENAME=wabi
-     - RABBITMQ_ERLANG_COOKIE=wabi
-     - RABBITMQ_DEFAULT_USER=guest
-     - RABBITMQ_DEFAULT_PASS=guest
-     - RABBITMQ_DEFAULT_VHOST=/
+      - RABBITMQ_ERLANG_COOKIE=wabi
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_DEFAULT_VHOST=/
     ports:
-     - "15671:15671"
-     - "15672:15672"
-     - "25672:25672"
-     - "4369:4369"
-     - "5671:5671"
-     - "5672:5672"
+      - "15671:15671"
+      - "15672:15672"
+      - "25672:25672"
+      - "4369:4369"
+      - "5671:5671"
+      - "5672:5672"
     volumes:
-     - rabbitmq-volume:/var/lib/rabbitmq/mnesia/wabi
+      - rabbitmq-volume:/var/lib/rabbitmq/mnesia/wabi
     networks:
-     - wabi-tier
+      - wabi-tier
 
   elasticsearch:
     image: urchinly/wabi-elasticsearch
     ports:
-     - "9200:9200"
-     - "9300:9300"
+      - "9200:9200"
+      - "9300:9300"
     volumes:
-     - elasticsearch-volume:/usr/share/elasticsearch/data
+      - elasticsearch-volume:/usr/share/elasticsearch/data
     networks:
-     - wabi-tier
+      - wabi-tier
 
   mongo:
     image: mongo
     ports:
-     - "27017:27017"
+      - "27017:27017"
     volumes:
-     - mongo-volume:/data/db
+      - mongo-volume:/data/db
     networks:
-     - wabi-tier
+      - wabi-tier
     labels:
-     - "uk.urchinly.tech=data"
+      - "uk.urchinly.tech=data"
 
 volumes:
   shared-volume:
@@ -126,3 +126,4 @@ volumes:
 networks:
   wabi-tier:
     driver: bridge
+
